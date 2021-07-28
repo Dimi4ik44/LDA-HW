@@ -20,7 +20,7 @@ namespace HW3
             // arrayPrint(arrayFillRandom(myArray));
             // arrayPrint(arrayFillSquareOutline(myArray));
             // arrayPrint(arrayFillTypeX(myArray));
-            arrayPrint(arrayFillPiramidV2(myArray));
+            arrayPrint(arrayFillPiramid(myArray));
 
             static int readNumber()
             {
