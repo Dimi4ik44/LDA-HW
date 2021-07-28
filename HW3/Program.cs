@@ -29,7 +29,7 @@ namespace HW3
             {
                 int number;
                 Console.WriteLine("Set array size!");
-                while (!(Int32.TryParse(Console.ReadLine(), out number)))
+                while (!(Int32.TryParse(Console.ReadLine(), out number)) || !(number > 0))
                 {
                     sendErrorMessage(errorMessageList[0]);
                 }
