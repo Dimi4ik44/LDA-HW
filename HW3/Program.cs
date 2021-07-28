@@ -17,9 +17,12 @@ namespace HW3
             //code
             int arraySize = readNumber();
             int[,] myArray = new int[arraySize, arraySize];
-            // arrayPrint(arrayFillRandom(myArray));
-            // arrayPrint(arrayFillSquareOutline(myArray));
-            // arrayPrint(arrayFillTypeX(myArray));
+            arrayPrint(arrayFillRandom(myArray));
+            myArray = new int[arraySize, arraySize];
+            arrayPrint(arrayFillSquareOutline(myArray));
+            myArray = new int[arraySize, arraySize];
+            arrayPrint(arrayFillTypeX(myArray));
+            myArray = new int[arraySize, arraySize];
             arrayPrint(arrayFillPiramid(myArray));
 
             static int readNumber()
