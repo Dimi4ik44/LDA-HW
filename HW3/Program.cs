@@ -20,7 +20,7 @@ namespace HW3
             // arrayPrint(arrayFillRandom(myArray));
             // arrayPrint(arrayFillSquareOutline(myArray));
             // arrayPrint(arrayFillTypeX(myArray));
-            arrayPrint(arrayFillPiramid(myArray));
+            arrayPrint(arrayFillPiramidV2(myArray));
 
             static int readNumber()
             {
@@ -80,39 +80,20 @@ namespace HW3
                 int lenghtDimen0, lenghtDimen1;
                 lenghtDimen0 = array.GetLength(0);
                 lenghtDimen1 = array.GetLength(1);
-                int i = 0, k = 0;
                 int counter = 1;
-
-                for (; i <= lenghtDimen0; i++)
+                for (int i = 0; i < lenghtDimen1; i++)
                 {
-                    if (i<lenghtDimen0/2)
+                    for (int k = 0 + i; k < lenghtDimen0 - i; k++)
                     {
-                        for (k = 0 + i; k < lenghtDimen1 - i; k++)
-                        {
-                            array[i, k] = counter++;
-                        }
-                        counter = 1;
+                        array[i, k] = counter++;
                     }
-                    else
+                    counter = 1;
+                    for (int k = lenghtDimen0 - i-1; k <= 0 + i; k++)
                     {
-                        for (int r = lenghtDimen1 - i; r < i; r++)
-                        {
-                            array[i - 1, r] = counter++;
-                        }
-                        counter = 1;
+                        array[i, k] = counter++;
                     }
-
-                    //array[i, 0 + i] = 1;
-                    //array[i, (lenghtDimen1 - 1) - i] = 1;
+                    counter = 1;
                 }
-                return array;
-            }
-            static int[,] arrayFillPiramidV2(int[,] array)
-            {
-                int lenghtDimen0, lenghtDimen1;
-                lenghtDimen0 = array.GetLength(0);
-                lenghtDimen1 = array.GetLength(1);
-                
                 return array;
             }
             static int[,] arrayFillTypeX(int[,] array)
