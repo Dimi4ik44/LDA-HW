@@ -4,8 +4,8 @@ namespace HW3
 {
     class Program
     {
-         static string[] errorMessageList = new string[5];
-        
+        static string[] errorMessageList = new string[5];
+
         static void Main(string[] args)
         {
             //init error messages
@@ -16,21 +16,35 @@ namespace HW3
             errorMessageList[4] = "Empty";
             //code
             int arraySize = readNumber();
-            Console.WriteLine(arraySize);
-        }
+            int[,] myArray = new int[arraySize, arraySize];
 
-        static int readNumber()
-        {
-            int number;
-            while(!(Int32.TryParse(Console.ReadLine(), out number)))
+            static int readNumber()
             {
-                sendErrorMessage(errorMessageList[0]);
+                int number;
+                Console.WriteLine("Set array size!");
+                while (!(Int32.TryParse(Console.ReadLine(), out number)))
+                {
+                    sendErrorMessage(errorMessageList[0]);
+                }
+                return number;
             }
-            return number;
-        }
-        static void sendErrorMessage(string error)
-        {
-            Console.WriteLine($"Error: {error}");
+
+            static void arrayFillSquareOutline(int[,] array)
+            {
+
+            }
+            static void arrayFillPiramid(int[,] array)
+            {
+
+            }
+            static void arrayFillTypeX(int[,] array)
+            {
+
+            }
+            static void sendErrorMessage(string error)
+            {
+                Console.WriteLine($"Error: {error}");
+            }
         }
     }
 }
