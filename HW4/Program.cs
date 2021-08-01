@@ -172,6 +172,11 @@ namespace HW4
             }
             return result;
         }
+        static int[,] matrixMul(int[,] matrix,int multiplier)
+        {
+
+            return new int[0,0];
+        }
 
         static void sendErrorMessage(string error)
         {
