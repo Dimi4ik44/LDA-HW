@@ -42,9 +42,8 @@ namespace HW4
                     Console.WriteLine("Start init matrix");
                     matrix1 = inputMatrix(matrixLenght, matrixHeight);
                     Console.Clear();
-                    Console.WriteLine("Write multiplier");
-                    int multiplier = inputNumber("Input Lenght Matrix");
-                    //twoDementionArrayPrint(matrixSum(matrix1, matrix2));
+                    int multiplier = inputNumber("Write multiplier");
+                    twoDementionArrayPrint(matrixMul(matrix1, multiplier));
                     break;
                 case 3:
                     break;
@@ -172,10 +171,22 @@ namespace HW4
             }
             return result;
         }
-        static int[,] matrixMul(int[,] matrix,int multiplier)
+        static int[,] matrixMultipleN(int[,] matrix,int multiplier)
         {
 
-            return new int[0,0];
+            int lenghtDimen0, lenghtDimen1;
+            lenghtDimen0 = matrix.GetLength(0);
+            lenghtDimen1 = matrix.GetLength(1);
+
+            for (int i = 0; i < lenghtDimen0; i++)
+            {
+                for (int k = 0; k < lenghtDimen1; k++)
+                {
+                    matrix[i, k] *= multiplier;
+                }
+            }
+
+            return matrix;
         }
 
         static void sendErrorMessage(string error)
