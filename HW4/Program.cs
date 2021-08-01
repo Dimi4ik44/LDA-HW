@@ -22,11 +22,13 @@ namespace HW4
             {
                 case 1:
                     Console.Clear();
-                    Console.WriteLine("Selected '+' operation\nStart init matrix N1");
-                    int[,] matrix1 = inputMatrix(inputNumber("Input Lenght Matrix"), inputNumber("Input Height Matrix"));
+                    Console.WriteLine("Selected '+' operation");
+                    int matrixLenght = inputNumber("Input Lenght Matrix"), matrixHeight = inputNumber("Input Height Matrix");
+                    Console.WriteLine("Start init matrix N1");
+                    int[,] matrix1 = inputMatrix(matrixLenght,matrixHeight);
                     Console.Clear();
                     Console.WriteLine("Start init matrix N2");
-                    int[,] matrix2 = inputMatrix(inputNumber("Input Lenght Matrix"), inputNumber("Input Height Matrix"));
+                    int[,] matrix2 = inputMatrix(matrixLenght, matrixHeight);
                     twoDementionArrayPrint(matrixSum(matrix1,matrix2));
                     break;
                 case 2:
@@ -95,15 +97,11 @@ namespace HW4
             }
             Console.WriteLine(sep);
         }
-        static int[,] matrixSum(int[,] matrix1, int[,] matrix2) // simple
+        static int[,] matrixSum(int[,] matrix1, int[,] matrix2)
         {
             int matrix1LenghtDimen0, matrix1LenghtDimen1;
             matrix1LenghtDimen0 = matrix1.GetLength(0);
             matrix1LenghtDimen1 = matrix1.GetLength(1);
-
-            int matrix2LenghtDimen0, matrix2LenghtDimen1;
-            matrix2LenghtDimen0 = matrix2.GetLength(0);
-            matrix2LenghtDimen1 = matrix2.GetLength(1);
 
             int[,] result = new int[matrix1LenghtDimen0, matrix1LenghtDimen1];
 
