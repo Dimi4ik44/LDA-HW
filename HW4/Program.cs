@@ -4,22 +4,41 @@ namespace HW4
 {
     class Program
     {
-        static string[] errorMessageList = { "Incorect input", "Empty"};
+        static string[] errorMessageList = { "Incorrect input", "Incorrect selection"};
         static void Main(string[] args)
         {
-            int[,] matrix = inputMatrix(inputNumber("Input Lenght Matrix"), inputNumber("Input Height Matrix"));
-            twoDementionArrayPrint(matrix);
+            //Console.WriteLine("Welcome to matrix solver!");
+            //selectOp();
+            //int[,] matrix = inputMatrix(inputNumber("Input Lenght Matrix"), inputNumber("Input Height Matrix"));
+            //twoDementionArrayPrint(matrix);
+            selectOp();
 
         }
         static void selectOp()
         {
             Console.WriteLine("Select operation");
-            Console.WriteLine("Operation list: \n   1: matrix + matrix\n   2: matrix * n\n  3: matrix * matrix\n   4: pow(matrix,n)\n   5: transpon(matrix)");
-            switch (inputNumber())
+            Console.WriteLine("Operation list: \n   1: matrix + matrix\n   2: matrix * n\n   3: matrix * matrix\n   4: pow(matrix,n)\n   5: transpon(matrix)");
+            switch (inputNumber("Write selection"))
             {
                 case 1:
-
+                    Console.Clear();
+                    Console.WriteLine("Selected '+' operation\nStart init matrix N1");
+                    int[,] matrix1 = inputMatrix(inputNumber("Input Lenght Matrix"), inputNumber("Input Height Matrix"));
+                    Console.Clear();
+                    Console.WriteLine("Start init matrix N2");
+                    int[,] matrix2 = inputMatrix(inputNumber("Input Lenght Matrix"), inputNumber("Input Height Matrix"));
+                    twoDementionArrayPrint(matrixSum(matrix1,matrix2));
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
                 default:
+                    sendErrorMessage(errorMessageList[1]);
                     break;
             }
         }
@@ -31,7 +50,7 @@ namespace HW4
             {
                 Console.WriteLine(message);
             }
-            while (!(Int32.TryParse(Console.ReadLine(), out number)) || !(number > 0))
+            while (!(Int32.TryParse(Console.ReadLine(), out number)))
             {
                 sendErrorMessage(errorMessageList[0]);
             }
@@ -76,7 +95,27 @@ namespace HW4
             }
             Console.WriteLine(sep);
         }
+        static int[,] matrixSum(int[,] matrix1, int[,] matrix2) // simple
+        {
+            int matrix1LenghtDimen0, matrix1LenghtDimen1;
+            matrix1LenghtDimen0 = matrix1.GetLength(0);
+            matrix1LenghtDimen1 = matrix1.GetLength(1);
 
+            int matrix2LenghtDimen0, matrix2LenghtDimen1;
+            matrix2LenghtDimen0 = matrix2.GetLength(0);
+            matrix2LenghtDimen1 = matrix2.GetLength(1);
+
+            int[,] result = new int[matrix1LenghtDimen0, matrix1LenghtDimen1];
+
+            for (int i = 0; i < matrix1LenghtDimen0; i++)
+            {
+                for (int k = 0; k < matrix1LenghtDimen1; k++)
+                {
+                    result[i, k] = matrix1[i, k] + matrix2[i, k];
+                }
+            }
+            return result;
+        }
 
         static void sendErrorMessage(string error)
         {
