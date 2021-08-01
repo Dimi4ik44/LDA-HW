@@ -18,20 +18,33 @@ namespace HW4
         {
             Console.WriteLine("Select operation");
             Console.WriteLine("Operation list: \n   1: matrix + matrix\n   2: matrix * n\n   3: matrix * matrix\n   4: pow(matrix,n)\n   5: transpon(matrix)");
+            int matrixLenght, matrixHeight;
+            int[,] matrix1, matrix2;
             switch (inputNumber("Write selection"))
             {
                 case 1:
                     Console.Clear();
-                    Console.WriteLine("Selected '+' operation");
-                    int matrixLenght = inputNumber("Input Lenght Matrix"), matrixHeight = inputNumber("Input Height Matrix");
+                    Console.WriteLine("Selected 'matrix + matrix' operation");
+                    matrixLenght = inputNumber("Input Lenght Matrix");
+                    matrixHeight = inputNumber("Input Height Matrix");
                     Console.WriteLine("Start init matrix N1");
-                    int[,] matrix1 = inputMatrix(matrixLenght,matrixHeight);
+                    matrix1 = inputMatrix(matrixLenght,matrixHeight);
                     Console.Clear();
                     Console.WriteLine("Start init matrix N2");
-                    int[,] matrix2 = inputMatrix(matrixLenght, matrixHeight);
+                    matrix2 = inputMatrix(matrixLenght, matrixHeight);
                     twoDementionArrayPrint(matrixSum(matrix1,matrix2));
                     break;
                 case 2:
+                    Console.Clear();
+                    Console.WriteLine("Selected 'matrix * n' operation");
+                    matrixLenght = inputNumber("Input Lenght Matrix");
+                    matrixHeight = inputNumber("Input Height Matrix");
+                    Console.WriteLine("Start init matrix");
+                    matrix1 = inputMatrix(matrixLenght, matrixHeight);
+                    Console.Clear();
+                    Console.WriteLine("Write multiplier");
+                    int multiplier = inputNumber("Input Lenght Matrix");
+                    //twoDementionArrayPrint(matrixSum(matrix1, matrix2));
                     break;
                 case 3:
                     break;
@@ -45,18 +58,63 @@ namespace HW4
             }
         }
 
-        static int inputNumber(string message = "")
+        static int inputNumber(string message = "", int type = 0)
         {
+            //
             int number;
-            if(message != "")
+            switch (type)
             {
-                Console.WriteLine(message);
+                case -1: //negative numbers include 0
+                    if (message != "")
+                    {
+                        Console.WriteLine(message);
+                    }
+                    while (!(Int32.TryParse(Console.ReadLine(), out number)) || number > 0)
+                    {
+                        sendErrorMessage(errorMessageList[0]);
+                    }
+                    return number;
+                case -2: //negative numbers without 0
+                    if (message != "")
+                    {
+                        Console.WriteLine(message);
+                    }
+                    while (!(Int32.TryParse(Console.ReadLine(), out number)) || number >= 0)
+                    {
+                        sendErrorMessage(errorMessageList[0]);
+                    }
+                    return number;
+                case 1: //positive numbers include 0
+                    if (message != "")
+                    {
+                        Console.WriteLine(message);
+                    }
+                    while (!(Int32.TryParse(Console.ReadLine(), out number)) || number < 0)
+                    {
+                        sendErrorMessage(errorMessageList[0]);
+                    }
+                    return number;
+                case 2: //positive numbers without 0
+                    if (message != "")
+                    {
+                        Console.WriteLine(message);
+                    }
+                    while (!(Int32.TryParse(Console.ReadLine(), out number)) || number <= 0)
+                    {
+                        sendErrorMessage(errorMessageList[0]);
+                    }
+                    return number;
+                default: //all numbers
+                    if (message != "")
+                    {
+                        Console.WriteLine(message);
+                    }
+                    while (!(Int32.TryParse(Console.ReadLine(), out number)))
+                    {
+                        sendErrorMessage(errorMessageList[0]);
+                    }
+                    return number;
             }
-            while (!(Int32.TryParse(Console.ReadLine(), out number)))
-            {
-                sendErrorMessage(errorMessageList[0]);
-            }
-            return number;
         }
         static int[,] inputMatrix(int sizeX,int sizeY)
         {
