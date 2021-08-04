@@ -4,7 +4,7 @@ namespace HW4
 {
     class Program
     {
-        static string[] errorMessageList = { "Incorrect input", "Incorrect selection"};
+        static string[] errorMessageList = { "Incorrect input", "Incorrect selection" };
         static void Main(string[] args)
         {
             //Console.WriteLine("Welcome to matrix solver!");
@@ -28,11 +28,11 @@ namespace HW4
                     matrixLenght = inputNumber("Input Lenght Matrix");
                     matrixHeight = inputNumber("Input Height Matrix");
                     Console.WriteLine("Start init matrix N1");
-                    matrix1 = inputMatrix(matrixLenght,matrixHeight);
+                    matrix1 = inputMatrix(matrixLenght, matrixHeight);
                     Console.Clear();
                     Console.WriteLine("Start init matrix N2");
                     matrix2 = inputMatrix(matrixLenght, matrixHeight);
-                    twoDementionArrayPrint(matrixSum(matrix1,matrix2));
+                    twoDementionArrayPrint(matrixSum(matrix1, matrix2));
                     break;
                 case 2:
                     Console.Clear();
@@ -127,7 +127,7 @@ namespace HW4
                     return number;
             }
         }
-        static int[,] inputMatrix(int sizeX,int sizeY)
+        static int[,] inputMatrix(int sizeX, int sizeY)
         {
             int[,] matrix = new int[sizeY, sizeX];
 
@@ -183,7 +183,7 @@ namespace HW4
             }
             return result;
         }
-        static int[,] matrixMultipleN(int[,] matrix,int multiplier)
+        static int[,] matrixMultipleN(int[,] matrix, int multiplier)
         {
 
             int lenghtDimen0, lenghtDimen1;
@@ -210,7 +210,7 @@ namespace HW4
             matrix2LenghtDimen0 = matrix2.GetLength(0);
             matrix2LenghtDimen1 = matrix2.GetLength(1);
 
-            int[,] result = new int[matrix1LenghtDimen0,matrix2LenghtDimen1];
+            int[,] result = new int[matrix1LenghtDimen0, matrix2LenghtDimen1];
 
             if (matrix1LenghtDimen1 == matrix2LenghtDimen0)
             {
@@ -226,7 +226,7 @@ namespace HW4
                         result[i, l] = resultMul;
                     }
                 }
-                
+
             }
             else
             {
@@ -236,6 +236,13 @@ namespace HW4
 
 
             return result;
+        }
+        static int[,] matrixPow(int[,] matrix, int power)
+        {
+
+
+
+
         }
 
         static void sendErrorMessage(string error)
