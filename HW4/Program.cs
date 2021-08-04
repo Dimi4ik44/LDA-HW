@@ -60,6 +60,23 @@ namespace HW4
                     twoDementionArrayPrint(matrixMultiple(matrix1, matrix2));
                     break;
                 case 4:
+                    Console.Clear();
+                    Console.WriteLine("Selected 'matrix * matrix' operation");
+                    matrixLenght = inputNumber("Input Lenght Matrix");
+                    matrixHeight = inputNumber("Input Height Matrix");
+                    if (matrixLenght == matrixHeight)
+                    {
+                        Console.WriteLine("Start init matrix N1");
+                        matrix1 = inputMatrix(matrixLenght, matrixHeight);
+
+                        Console.Clear();
+                        int power = inputNumber("Write Power", 2);
+                        twoDementionArrayPrint(matrixPow(matrix1, power));
+                    }
+                    else
+                    {
+                        sendErrorMessage("Matrix must be 1x1 , 2x2, 3x3, 4x4...");
+                    }
                     break;
                 case 5:
                     break;
@@ -239,10 +256,12 @@ namespace HW4
         }
         static int[,] matrixPow(int[,] matrix, int power)
         {
-
-
-
-
+            int[,] result = matrix;
+                for (int i = 1; i < power; i++)
+                {
+                    result = matrixMultiple(matrix, result);
+                }
+            return result;
         }
 
         static void sendErrorMessage(string error)
