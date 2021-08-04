@@ -17,7 +17,7 @@ namespace HW4
         static void selectOp()
         {
             Console.WriteLine("Select operation");
-            Console.WriteLine("Operation list: \n   1: matrix + matrix\n   2: matrix * n\n   3: matrix * matrix\n   4: pow(matrix,n)\n   5: transpon(matrix)");
+            Console.WriteLine("Operation list: \n   1: matrix + matrix\n   2: matrix * n\n   3: matrix * matrix\n   4: pow(matrix,n)\n   5: transpos(matrix)");
             int matrixLenght, matrixHeight;
             int[,] matrix1, matrix2;
             switch (inputNumber("Write selection"))
@@ -61,7 +61,7 @@ namespace HW4
                     break;
                 case 4:
                     Console.Clear();
-                    Console.WriteLine("Selected 'matrix * matrix' operation");
+                    Console.WriteLine("Selected 'pow(matrix,n)' operation");
                     matrixLenght = inputNumber("Input Lenght Matrix");
                     matrixHeight = inputNumber("Input Height Matrix");
                     if (matrixLenght == matrixHeight)
@@ -79,6 +79,14 @@ namespace HW4
                     }
                     break;
                 case 5:
+                    Console.Clear();
+                    Console.WriteLine("Selected 'transpos(matrix5)' operation");
+                    matrixLenght = inputNumber("Input Lenght Matrix");
+                    matrixHeight = inputNumber("Input Height Matrix");
+                    Console.WriteLine("Start init matrix N1");
+                    matrix1 = inputMatrix(matrixLenght, matrixHeight);
+                    Console.Clear();
+                    twoDementionArrayPrint(matrixTransposition(matrix1));
                     break;
                 default:
                     sendErrorMessage(errorMessageList[1]);
@@ -263,9 +271,23 @@ namespace HW4
                 }
             return result;
         }
-        static int[,] matrixTransposition()
+        static int[,] matrixTransposition(int[,] matrix)
         {
+            int lenghtDimen0, lenghtDimen1;
+            lenghtDimen0 = matrix.GetLength(0);//w
+            lenghtDimen1 = matrix.GetLength(1);//h
 
+            int[,] result = new int[lenghtDimen1, lenghtDimen0];
+
+            for (int i = 0; i < lenghtDimen0; i++)
+            {
+                for (int k = 0; k < lenghtDimen1; k++)
+                {
+                    result[k, i] = matrix[i, k];
+                }
+            }
+
+            return result;
         }
 
         static void sendErrorMessage(string error)
