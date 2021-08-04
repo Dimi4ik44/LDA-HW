@@ -43,9 +43,21 @@ namespace HW4
                     matrix1 = inputMatrix(matrixLenght, matrixHeight);
                     Console.Clear();
                     int multiplier = inputNumber("Write multiplier");
-                    twoDementionArrayPrint(matrixMul(matrix1, multiplier));
+                    twoDementionArrayPrint(matrixMultipleN(matrix1, multiplier));
                     break;
                 case 3:
+                    Console.Clear();
+                    Console.WriteLine("Selected 'matrix * matrix' operation");
+                    matrixLenght = inputNumber("Input Lenght Matrix");
+                    matrixHeight = inputNumber("Input Height Matrix");
+                    Console.WriteLine("Start init matrix N1");
+                    matrix1 = inputMatrix(matrixLenght, matrixHeight);
+                    Console.Clear();
+                    matrixLenght = inputNumber("Input Lenght Matrix");
+                    matrixHeight = inputNumber("Input Height Matrix");
+                    Console.WriteLine("Start init matrix N2");
+                    matrix2 = inputMatrix(matrixLenght, matrixHeight);
+                    twoDementionArrayPrint(matrixMultiple(matrix1, matrix2));
                     break;
                 case 4:
                     break;
@@ -120,8 +132,8 @@ namespace HW4
             int[,] matrix = new int[sizeY, sizeX];
 
             int lenghtDimen0, lenghtDimen1;
-            lenghtDimen0 = matrix.GetLength(0);
-            lenghtDimen1 = matrix.GetLength(1);
+            lenghtDimen0 = matrix.GetLength(0); //рядки 
+            lenghtDimen1 = matrix.GetLength(1); //стовбці
 
             for (int i = 0; i < lenghtDimen0; i++)
             {
@@ -187,6 +199,43 @@ namespace HW4
             }
 
             return matrix;
+        }
+        static int[,] matrixMultiple(int[,] matrix1, int[,] matrix2)
+        {
+            int matrix1LenghtDimen0, matrix1LenghtDimen1;
+            matrix1LenghtDimen0 = matrix1.GetLength(0);
+            matrix1LenghtDimen1 = matrix1.GetLength(1);
+
+            int matrix2LenghtDimen0, matrix2LenghtDimen1;
+            matrix2LenghtDimen0 = matrix2.GetLength(0);
+            matrix2LenghtDimen1 = matrix2.GetLength(1);
+
+            int[,] result = new int[matrix1LenghtDimen0,matrix2LenghtDimen1];
+
+            if (matrix1LenghtDimen1 == matrix2LenghtDimen0)
+            {
+                for (int i = 0; i < matrix1LenghtDimen0; i++)
+                {
+                    for (int l = 0; l < matrix2LenghtDimen1; l++)
+                    {
+                        int resultMul = 0;
+                        for (int k = 0; k < matrix1LenghtDimen1; k++)
+                        {
+                            resultMul += matrix1[i, k] * matrix2[k, l];
+                        }
+                        result[i, l] = resultMul;
+                    }
+                }
+                
+            }
+            else
+            {
+                Console.WriteLine("Isnt real");
+                result = new int[0, 0];
+            }
+
+
+            return result;
         }
 
         static void sendErrorMessage(string error)
