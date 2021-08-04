@@ -263,6 +263,10 @@ namespace HW4
                 }
             return result;
         }
+        static int[,] matrixTransposition()
+        {
+
+        }
 
         static void sendErrorMessage(string error)
         {
