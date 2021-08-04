@@ -7,12 +7,7 @@ namespace HW4
         static string[] errorMessageList = { "Incorrect input", "Incorrect selection" };
         static void Main(string[] args)
         {
-            //Console.WriteLine("Welcome to matrix solver!");
-            //selectOp();
-            //int[,] matrix = inputMatrix(inputNumber("Input Lenght Matrix"), inputNumber("Input Height Matrix"));
-            //twoDementionArrayPrint(matrix);
             selectOp();
-
         }
         static void selectOp()
         {
