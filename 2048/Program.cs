@@ -146,8 +146,21 @@ namespace _2048
         }
         static int[,] move(int[,] field,int direction)
         {
-
-            return field;
+            int frow = field.GetLength(0);
+            int fcol = field.GetLength(1);
+            switch (direction)
+            {
+                case 1:
+                    return moveUp(field);
+                case 2:
+                    return moveDown(field);
+                case 3:
+                    return moveLeft(field);
+                case 4:
+                    return moveRight(field);
+                default:
+                    return field;
+            }
         }
         static int selectDirection()
         {
@@ -172,6 +185,157 @@ namespace _2048
                         continue;
                 }
             }
+        }
+        static int[,] moveUp(int[,] field)
+        {
+            int[,] copyField = field;
+            bool canMove = false;
+            int counter = 0;
+            int[] col = new int[field.GetLength(0)];
+            for (int k = 0; k < field.GetLength(1); k++)
+            {
+                for (int i = 0; i < col.Length; i++)
+                {
+                col[i] = 0;
+                };
+
+                for (int i = 0; i < field.GetLength(0); i++)
+                {
+                    if(field[i,k]==0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (i-1 >= 0 && field[i - 1, k] == 0) canMove = true;
+                        col[counter] = field[i, k];
+                        counter++;
+                    }
+                }
+
+                for (int i = 0; i < field.GetLength(0); i++)
+                {
+                        field[i, k] = col[i];
+                }
+                counter = 0;
+            }
+            
+            if(canMove)
+            {
+                return field;
+            }
+            return copyField;
+        }
+        static int[,] moveDown(int[,] field)
+        {
+            int counter = 0;
+            int[] col = new int[field.GetLength(0)];
+            for (int k = 0; k < field.GetLength(1); k++)
+            {
+                for (int i = 0; i < col.Length; i++)
+                {
+                    col[i] = 0;
+                };
+
+                for (int i = field.GetLength(0)-1; i >= 0; i--)
+                {
+                    if (field[i, k] == 0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        col[col.Length-counter-1] = field[i, k];
+                        counter++;
+                    }
+                }
+
+                for (int i = field.GetLength(0)-1; i >= 0; i--)
+                {
+                    field[i, k] = col[i];
+                }
+                counter = 0;
+            }
+
+            return field;
+        }
+        static int[,] moveLeft(int[,] field)
+        {
+            int counter = 0;
+            int[] col = new int[field.GetLength(0)];
+            for (int k = 0; k < field.GetLength(1); k++)
+            {
+                for (int i = 0; i < col.Length; i++)
+                {
+                    col[i] = 0;
+                };
+
+                for (int i = 0; i < field.GetLength(0); i++)
+                {
+                    if (field[k, i] == 0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        col[counter] = field[k, i];
+                        counter++;
+                    }
+                }
+
+                for (int i = 0; i < field.GetLength(0); i++)
+                {
+                    field[k, i] = col[i];
+                }
+                counter = 0;
+            }
+
+            return field;
+        }
+        static int[,] moveRight(int[,] field)
+        {
+            int counter = 0;
+            int[] col = new int[field.GetLength(0)];
+            for (int k = 0; k < field.GetLength(1); k++)
+            {
+                for (int i = 0; i < col.Length; i++)
+                {
+                    col[i] = 0;
+                };
+
+                for (int i = field.GetLength(0) - 1; i >= 0; i--)
+                {
+                    if (field[k, i] == 0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        col[col.Length - counter - 1] = field[k, i];
+                        counter++;
+                    }
+                }
+
+                for (int i = field.GetLength(0) - 1; i >= 0; i--)
+                {
+                    field[k, i] = col[i];
+                }
+                counter = 0;
+            }
+
+            return field;
+        }
+        static int[,] merge(int[,] field, int direction)
+        {
+            if(direction == 1 || direction == 2)
+            {
+
+            }
+            else
+            {
+
+            }
+            return field;
         }
     }
 
