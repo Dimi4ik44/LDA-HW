@@ -7,17 +7,18 @@ namespace _2048
         static void Main(string[] args)
         {
             int score = 0;
-            bool gameOver = false;
             int[,] field = createField();
-            field = spawnNumberAtRandomPos(field, out gameOver);
-            while (!gameOver)
+            field = spawnNumberAtRandomPos(field);
+            while (canPlay(field))
             {
                 Console.Clear();
+                Console.WriteLine($"Your SCORE: {score}");
                 render(field);
                 field = move(field,selectDirection());
-                field = spawnNumberAtRandomPos(field, out gameOver);
             }
-            Console.WriteLine($"GameOVER Your SCORE: {score}");
+            Console.Clear();
+            render(field);
+            Console.WriteLine($"GameOVER");
         }
         static int[,] createField()
         {
@@ -98,11 +99,26 @@ namespace _2048
                     return ConsoleColor.White;
             }
         }
-        static int[,] spawnNumberAtRandomPos(int[,] field, out bool gameStatus)
+        static bool canPlay(int[,] field)
+        {
+            for (int i = 0; i < field.GetLength(0); i++)
+            {
+                for (int k = 0; k < field.GetLength(1); k++)
+                {
+                    if(field[i,k] == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        static int[,] spawnNumberAtRandomPos(int[,] field)
         {
             Random rnd = new Random();
             bool canSpawn = false;
-            int y = rnd.Next(0,field.GetLength(0)), x = rnd.Next(0, field.GetLength(0));
+            int y = rnd.Next(0, field.GetLength(0));
+            int x = rnd.Next(0, field.GetLength(1));
             for (int i = 0; i < field.GetLength(0); i++)
             {
                 if (!canSpawn)
@@ -123,7 +139,6 @@ namespace _2048
             }
             if(!canSpawn)
             {
-                gameStatus = true;
                 return field;
             }
 
@@ -138,10 +153,9 @@ namespace _2048
                 else
                 {
                     y = rnd.Next(0, field.GetLength(0));
-                    x = rnd.Next(0, field.GetLength(0));
+                    x = rnd.Next(0, field.GetLength(1));
                 }
             }
-            gameStatus = false;
             return field;
         }
         static int[,] move(int[,] field,int direction)
@@ -222,12 +236,15 @@ namespace _2048
             
             if(canMove)
             {
+                field = spawnNumberAtRandomPos(field);
                 return field;
             }
             return copyField;
         }
         static int[,] moveDown(int[,] field)
         {
+            int[,] copyField = field;
+            bool canMove = false;
             int counter = 0;
             int[] col = new int[field.GetLength(0)];
             for (int k = 0; k < field.GetLength(1); k++)
@@ -245,6 +262,7 @@ namespace _2048
                     }
                     else
                     {
+                        if (i + 1 < field.GetLength(1) && field[i + 1, k] == 0) canMove = true;
                         col[col.Length-counter-1] = field[i, k];
                         counter++;
                     }
@@ -257,10 +275,17 @@ namespace _2048
                 counter = 0;
             }
 
-            return field;
+            if (canMove)
+            {
+                field = spawnNumberAtRandomPos(field);
+                return field;
+            }
+            return copyField;
         }
         static int[,] moveLeft(int[,] field)
         {
+            int[,] copyField = field;
+            bool canMove = false;
             int counter = 0;
             int[] col = new int[field.GetLength(0)];
             for (int k = 0; k < field.GetLength(1); k++)
@@ -278,6 +303,7 @@ namespace _2048
                     }
                     else
                     {
+                        if (i - 1 >= 0 && field[k, i - 1] == 0) canMove = true;
                         col[counter] = field[k, i];
                         counter++;
                     }
@@ -290,10 +316,17 @@ namespace _2048
                 counter = 0;
             }
 
-            return field;
+            if (canMove)
+            {
+                field = spawnNumberAtRandomPos(field);
+                return field;
+            }
+            return copyField;
         }
         static int[,] moveRight(int[,] field)
         {
+            int[,] copyField = field;
+            bool canMove = false;
             int counter = 0;
             int[] col = new int[field.GetLength(0)];
             for (int k = 0; k < field.GetLength(1); k++)
@@ -311,6 +344,7 @@ namespace _2048
                     }
                     else
                     {
+                        if (i + 1 < field.GetLength(1) && field[k, i + 1] == 0) canMove = true;
                         col[col.Length - counter - 1] = field[k, i];
                         counter++;
                     }
@@ -323,7 +357,12 @@ namespace _2048
                 counter = 0;
             }
 
-            return field;
+            if (canMove)
+            {
+                field = spawnNumberAtRandomPos(field);
+                return field;
+            }
+            return copyField;
         }
         static int[,] merge(int[,] field, int direction)
         {
