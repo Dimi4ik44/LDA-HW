@@ -4,9 +4,10 @@ namespace _2048
 {
     class Program
     {
+        static int score = 0;
         static void Main(string[] args)
         {
-            int score = 0;
+            //int score = 0;
             int[,] field = createField();
             field = spawnNumberAtRandomPos(field);
             while (canPlay(field))
@@ -17,8 +18,14 @@ namespace _2048
                 field = move(field,selectDirection());
             }
             Console.Clear();
+            Console.WriteLine($"Your SCORE: {score}");
             render(field);
             Console.WriteLine($"GameOVER");
+            Console.WriteLine($"Press 'ESC' for exit");
+            while (true)
+            {
+                if (Console.ReadKey().Key == ConsoleKey.Escape) break;
+            }
         }
         static int[,] createField()
         {
@@ -101,17 +108,68 @@ namespace _2048
         }
         static bool canPlay(int[,] field)
         {
+            bool hasEmpty = false;
             for (int i = 0; i < field.GetLength(0); i++)
             {
+                if (hasEmpty) break;
                 for (int k = 0; k < field.GetLength(1); k++)
                 {
                     if(field[i,k] == 0)
                     {
-                        return true;
+                        hasEmpty = true;
+                        break;
                     }
                 }
             }
-            return false;
+
+            bool canMarge = false;
+            for (int i = 0; i < field.GetLength(0); i++)
+            {
+                for (int k = 0; k < field.GetLength(1); k++)
+                {
+                    if (canMarge) break;
+                    if (i == 0 && k == 0)
+                    {
+                        if (field[i, k] == field[i + 1, k] || field[i, k] == field[i, k + 1])
+                        {
+                            canMarge = true;
+                            break;
+                        }
+                    }
+                    else
+                    if (i == field.GetLength(0) - 1 && k == field.GetLength(1) - 1)
+                    {
+                        if (field[i, k] == field[i - 1, k] || field[i, k] == field[i, k - 1])
+                        {
+                            canMarge = true;
+                            break;
+                        }
+                    }
+                    else
+                    if (i == 0 && k == field.GetLength(1) - 1)
+                    {
+                        if (field[i, k] == field[i + 1, k] || field[i, k] == field[i, k - 1])
+                        {
+                            canMarge = true;
+                            break;
+                        }
+                    }
+                    else
+                    if (i == field.GetLength(0) - 1 && k == 0)
+                    {
+                        if (field[i, k] == field[i - 1, k] || field[i, k] == field[i, k + 1])
+                        {
+                            canMarge = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+
+
+            return canMarge || hasEmpty;
         }
         static int[,] spawnNumberAtRandomPos(int[,] field)
         {
@@ -213,6 +271,35 @@ namespace _2048
                 col[i] = 0;
                 };
 
+                //merge
+                int xN1 = -1, yN1 = -1;
+                for (int i = 0; i < field.GetLength(0); i++)
+                {
+                    if (field[i, k] == 0)
+                    {
+                        continue;
+                    }
+                    else
+                    {                       
+                        if(xN1 >= 0 && field[xN1,yN1] == field[i,k])
+                        {
+                            addScore(field[xN1, yN1] + field[i, k]);
+                            field[xN1, yN1] += field[i, k];
+                            field[i, k] = 0;
+                            xN1 = -1;
+                            yN1 = -1;
+                            canMove = true;
+                        }
+                        else
+                        {
+                            xN1 = i;
+                            yN1 = k;
+                        }
+                    }
+                }
+                
+                //end merge
+
                 for (int i = 0; i < field.GetLength(0); i++)
                 {
                     if(field[i,k]==0)
@@ -253,6 +340,34 @@ namespace _2048
                 {
                     col[i] = 0;
                 };
+
+                //merge
+                int xN1 = -1, yN1 = -1;
+                for (int i = field.GetLength(0) - 1; i >= 0; i--)
+                {
+                    if (field[i, k] == 0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (xN1 >= 0 && field[xN1, yN1] == field[i, k])
+                        {
+                            addScore(field[xN1, yN1] + field[i, k]);
+                            field[xN1, yN1] += field[i, k];
+                            field[i, k] = 0;
+                            xN1 = -1;
+                            yN1 = -1;
+                            canMove = true;
+                        }
+                        else
+                        {
+                            xN1 = i;
+                            yN1 = k;
+                        }
+                    }
+                }
+                //end merge
 
                 for (int i = field.GetLength(0)-1; i >= 0; i--)
                 {
@@ -295,6 +410,34 @@ namespace _2048
                     col[i] = 0;
                 };
 
+                //merge
+                int xN1 = -1, yN1 = -1;
+                for (int i = 0; i < field.GetLength(0); i++)
+                {
+                    if (field[k, i] == 0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (yN1 >= 0 && field[yN1, xN1] == field[k, i])
+                        {
+                            addScore(field[yN1, xN1] + field[k, i]);
+                            field[yN1, xN1] += field[k, i];
+                            field[k, i] = 0;
+                            xN1 = -1;
+                            yN1 = -1;
+                            canMove = true;
+                        }
+                        else
+                        {
+                            xN1 = i;
+                            yN1 = k;
+                        }
+                    }
+                }
+                //end merge
+
                 for (int i = 0; i < field.GetLength(0); i++)
                 {
                     if (field[k, i] == 0)
@@ -336,6 +479,34 @@ namespace _2048
                     col[i] = 0;
                 };
 
+                //merge
+                int xN1 = -1, yN1 = -1;
+                for (int i = field.GetLength(0) - 1; i >= 0; i--)
+                {
+                    if (field[k, i] == 0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (yN1 >= 0 && field[yN1, xN1] == field[k, i])
+                        {
+                            addScore(field[yN1, xN1] + field[k, i]);
+                            field[yN1, xN1] += field[k, i];
+                            field[k, i] = 0;
+                            xN1 = -1;
+                            yN1 = -1;
+                            canMove = true;
+                        }
+                        else
+                        {
+                            xN1 = i;
+                            yN1 = k;
+                        }
+                    }
+                }
+                //end merge
+
                 for (int i = field.GetLength(0) - 1; i >= 0; i--)
                 {
                     if (field[k, i] == 0)
@@ -364,17 +535,9 @@ namespace _2048
             }
             return copyField;
         }
-        static int[,] merge(int[,] field, int direction)
+        static void addScore(int numberOfScore)
         {
-            if(direction == 1 || direction == 2)
-            {
-
-            }
-            else
-            {
-
-            }
-            return field;
+            score += numberOfScore;
         }
     }
 
