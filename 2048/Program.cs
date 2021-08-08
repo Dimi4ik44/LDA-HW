@@ -250,7 +250,7 @@ namespace _2048
             {
                 if (field[y, x] == 0)
                 {
-                    field[y, x] = 2;
+                    field[y, x] = rnd.Next(0,99) >= 5 ? 2 : 4;
                     spawned = true;
                 }
                 else
@@ -280,7 +280,7 @@ namespace _2048
             }
         }
         static int selectDirection()
-        {
+        {           
             while (true)
             {
                 ConsoleKey key = Console.ReadKey(true).Key;
@@ -302,6 +302,7 @@ namespace _2048
                         continue;
                 }
             }
+            
         }
         static int[,] moveUp(int[,] field)
         {
