@@ -163,6 +163,51 @@ namespace _2048
                             break;
                         }
                     }
+                    else
+                    if (i == field.GetLength(0) - 1 && (k > 0 && k < field.GetLength(1)-1))
+                    {
+                        if (field[i, k] == field[i - 1, k] || field[i, k] == field[i, k + 1] || field[i, k] == field[i, k - 1])
+                        {
+                            canMarge = true;
+                            break;
+                        }
+                    }
+                    else
+                    if (k == field.GetLength(1) - 1 && (i > 0 && i < field.GetLength(0) - 1))
+                    {
+                        if (field[i, k] == field[i, k - 1] || field[i, k] == field[i + 1, k] || field[i, k] == field[i - 1, k])
+                        {
+                            canMarge = true;
+                            break;
+                        }
+                    }
+                    else
+                    if (i == 0 && (k > 0 && k < field.GetLength(1) - 1))
+                    {
+                        if (field[i, k] == field[i + 1, k] || field[i, k] == field[i, k + 1] || field[i, k] == field[i, k - 1])
+                        {
+                            canMarge = true;
+                            break;
+                        }
+                    }
+                    else
+                    if (k == 0 && (i > 0 && i < field.GetLength(0) - 1))
+                    {
+                        if (field[i, k] == field[i, k + 1] || field[i, k] == field[i + 1, k] || field[i, k] == field[i - 1, k])
+                        {
+                            canMarge = true;
+                            break;
+                        }
+                    }
+                    else
+                    if ((k > 0 && k < field.GetLength(1) - 1) && (i > 0 && i < field.GetLength(0) - 1))
+                    {
+                        if (field[i, k] == field[i, k + 1] || field[i, k] == field[i, k - 1] || field[i, k] == field[i + 1, k] || field[i, k] == field[i - 1, k])
+                        {
+                            canMarge = true;
+                            break;
+                        }
+                    }
                 }
             }
 
