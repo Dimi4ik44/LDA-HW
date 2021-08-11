@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HW4", "HW4\HW4.csproj", "{D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tests", "tests\tests.csproj", "{08BBE58B-07D4-4BD9-895D-CAB67784BA84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2048", "2048\2048.csproj", "{75CFF1C8-97B5-4DCD-B38F-1C422001DFE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2048", "2048\2048.csproj", "{75CFF1C8-97B5-4DCD-B38F-1C422001DFE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleGameHW6", "ConsoleGameHW6\ConsoleGameHW6.csproj", "{309D0BE2-FB2B-4F17-BE97-03EDD5DE709C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{75CFF1C8-97B5-4DCD-B38F-1C422001DFE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75CFF1C8-97B5-4DCD-B38F-1C422001DFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75CFF1C8-97B5-4DCD-B38F-1C422001DFE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{309D0BE2-FB2B-4F17-BE97-03EDD5DE709C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{309D0BE2-FB2B-4F17-BE97-03EDD5DE709C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{309D0BE2-FB2B-4F17-BE97-03EDD5DE709C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{309D0BE2-FB2B-4F17-BE97-03EDD5DE709C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
