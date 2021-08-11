@@ -6,7 +6,7 @@ namespace ConsoleGameHW6
 {
     class Enemy
     {
-        static int enemyCount;
+        public static int enemyCount;
 
         public int XPos { get; private set; } = 0;
         public int YPos { get; private set; } = 0;

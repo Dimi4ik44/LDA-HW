@@ -13,6 +13,7 @@ namespace ConsoleGameHW6
             Player p = new Player(0,2);
             enemys = new Enemy[] { new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy() };
             Field.render();
+            Console.Write($"Total Enemys: {Enemy.enemyCount}");
             while (true)
             {
                 if (p.move(DirectionManager.selectDirection()))
@@ -21,9 +22,10 @@ namespace ConsoleGameHW6
                     {
                         e.move(rnd.Next(1, 5));
                     }
-                    addEnemy();
+                    enemys = addEnemy();
                     Console.Clear();
                     Field.render();
+                    Console.Write($"Total Enemys: {Enemy.enemyCount}");
                 }     
             }
         }
