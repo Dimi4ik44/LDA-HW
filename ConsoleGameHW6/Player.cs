@@ -6,27 +6,24 @@ namespace ConsoleGameHW6
 {
     class Player
     {
-        static int playerCount;
 
         public int XPos { get; private set; } = 0;
         public int YPos { get; private set; } = 0;
+        public static int ShieldCount { get; set; } = 3; // shield
 
         public Skins.SkinsList skin { get; set; } = Skins.SkinsList.DefaultPlayer;
         public Player()
         {
-            playerCount++;
             spawn();
         }
         public Player(int XPos, int YPos)
         {
-            playerCount++;
             this.XPos = XPos;
             this.YPos = YPos;
             spawn();
         }
         public Player(int XPos, int YPos, Skins.SkinsList skin)
         {
-            playerCount++;
             this.XPos = XPos;
             this.YPos = YPos;
             this.skin = skin;
@@ -86,6 +83,10 @@ namespace ConsoleGameHW6
                     return false;
             }
             return false;
+        }
+        public void addShield() // shield
+        {
+            ShieldCount ++;
         }
     }
 }

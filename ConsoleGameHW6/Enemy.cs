@@ -84,5 +84,15 @@ namespace ConsoleGameHW6
                     break;
             }
         }
+        public static void addEnemy()
+        {
+            Enemy[] en = new Enemy[enemys.Length + 1];
+            for (int i = 0; i < enemys.Length; i++)
+            {
+                en[i] = enemys[i];
+            }
+            en[en.Length - 1] = new Enemy();
+            enemys = en;
+        }
     }
 }

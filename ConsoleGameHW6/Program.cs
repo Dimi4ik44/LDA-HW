@@ -8,11 +8,12 @@ namespace ConsoleGameHW6
         static void Main(string[] args)
         {         
             Random rnd = new Random();
-            Field.createNewField(4,4);
+            Field.createNewField(6,6);
             Player p = new Player(0,2);
             Enemy.enemys = new Enemy[] { new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy() };
+            Shield.shields = new Shield[] { new Shield(), new Shield() };
             Field.render();
-            Console.Write($"Total Enemys: {Enemy.enemyCount}");
+            Console.WriteLine($"Total Enemys: {Enemy.enemyCount}  Shields: {Player.ShieldCount}");
             while (gameStatus)
             {
                 if (p.move(DirectionManager.selectDirection()))
@@ -21,23 +22,18 @@ namespace ConsoleGameHW6
                     {
                         e.move(rnd.Next(1, 5));
                     }
-                    Enemy.enemys = addEnemy();
+                    Enemy.addEnemy();
                     Console.Clear();
+                    foreach (Shield s in Shield.shields)
+                    {
+                        s.reSpawn();
+                    }
                     Field.render();
-                    Console.WriteLine($"Total Enemys: {Enemy.enemyCount}");
+                    Console.WriteLine($"Total Enemys: {Enemy.enemyCount}  Shields: {Player.ShieldCount}");
+
                 }     
             }
             Console.WriteLine("Game Over");
-        }
-        public static Enemy[] addEnemy()
-        {
-            Enemy[] en = new Enemy[Enemy.enemys.Length + 1];
-            for (int i = 0; i < Enemy.enemys.Length; i++)
-            {
-                en[i] = Enemy.enemys[i];
-            }
-            en[en.Length - 1] = new Enemy();
-            return en;
         }
         public static void gameOver()
         {
