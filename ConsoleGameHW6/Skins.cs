@@ -11,10 +11,9 @@ namespace ConsoleGameHW6
             Empty = 0,
             DefaultPlayer = 1,
             Enemy = 2,
-            Smile = 3,
-            Stick = 4
+            Stick = 3
         }
-       public static char[] skinImage = new char[] { '0', '@', '-', ')', '\\' };
+       public static char[] skinImage = new char[] { '0', '☺', '☻', '\\' };
     }
 
 }
