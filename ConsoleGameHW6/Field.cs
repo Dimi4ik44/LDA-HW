@@ -121,9 +121,5 @@ namespace ConsoleGameHW6
                 Console.ResetColor();
 
         }
-        public static void rerenderShields()
-        {
-
-        }
     }
 }

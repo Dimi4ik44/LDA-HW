@@ -9,7 +9,7 @@ namespace ConsoleGameHW6
 
         public int XPos { get; private set; } = 0;
         public int YPos { get; private set; } = 0;
-        public static int ShieldCount { get; set; } = 3; // shield
+        public static int ShieldCount { get; set; } = 2; // shield
 
         public Skins.SkinsList skin { get; set; } = Skins.SkinsList.DefaultPlayer;
         public Player()
@@ -88,5 +88,10 @@ namespace ConsoleGameHW6
         {
             ShieldCount ++;
         }
+        //public bool cnanMove()
+        //{
+        //    if (Field.ChangeField[YPos + 1,XPos] == 0)
+        //        return true;
+        //}
     }
 }
