@@ -15,12 +15,28 @@ namespace ConsoleGameHW6
         {
 
         }
-        public static bool placeObj(int x, int y, Skins.SkinsList s)
+        public static bool placeObj(int x, int y, Skins.SkinsList s, bool firstSpawn = false)
         {
-            if(x >= 0 && x < XSize && y >= 0 && y < YSize && array[y, x] == 0)
+            if(firstSpawn)
             {
-                array[y, x] = (int)s;
-                return true;
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && array[y, x] == (int)Skins.SkinsList.Empty)
+                {
+                    array[y, x] = (int)s;
+                    return true;
+                }
+                
+            }
+            else
+            {
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x] == (int)Skins.SkinsList.Empty || array[y, x] == (int)Skins.SkinsList.DefaultPlayer))
+                {
+                    if(array[y, x] == (int)Skins.SkinsList.DefaultPlayer)
+                    {
+                        Program.gameOver();
+                    }
+                    array[y, x] = (int)s;
+                    return true;
+                }
             }
             return false;
         }
