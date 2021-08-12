@@ -6,7 +6,6 @@ namespace ConsoleGameHW6
 {
     public class Cell
     {
-        public int obj { get; set; }
         public int skin { get; set; }
     }
 }
