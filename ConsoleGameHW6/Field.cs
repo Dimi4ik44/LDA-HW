@@ -8,9 +8,9 @@ namespace ConsoleGameHW6
     {
         public static int XSize { get; private set; }
         public static int YSize { get; private set; }
-        private static int[,] array;
+        private static Cell[,] array;
 
-        public static int[,] ChangeField { get { return array; } set { array = value; } }
+        public static Cell[,] ChangeField { get { return array; } set { array = value; } }
         static Field()
         {
 
@@ -19,18 +19,18 @@ namespace ConsoleGameHW6
         {
             if(firstSpawn)
             {
-                if (x >= 0 && x < XSize && y >= 0 && y < YSize && array[y, x] == (int)Skins.SkinsList.Empty)
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && array[y, x].skin == (int)Skins.SkinsList.Empty)
                 {
-                    array[y, x] = (int)s;
+                    array[y, x].skin = (int)s;
                     return true;
                 }
                 
             }
             else
             {
-                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x] == (int)Skins.SkinsList.Empty || array[y, x] == (int)Skins.SkinsList.DefaultPlayer || array[y, x] == (int)Skins.SkinsList.Stick))
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x].skin == (int)Skins.SkinsList.Empty || array[y, x].skin == (int)Skins.SkinsList.DefaultPlayer || array[y, x].skin == (int)Skins.SkinsList.Stick))
                 {
-                    if(s == Skins.SkinsList.DefaultPlayer && array[y, x] == (int)Skins.SkinsList.Stick)
+                    if(s == Skins.SkinsList.DefaultPlayer && array[y, x].skin == (int)Skins.SkinsList.Stick)
                     {
                         Player.ShieldCount++;
                         Shield[] tempShields = new Shield[Shield.shields.Length-1];
@@ -46,16 +46,16 @@ namespace ConsoleGameHW6
                         }
                         Shield.shields = tempShields;
                     }
-                    if(array[y, x] == (int)Skins.SkinsList.DefaultPlayer && Player.ShieldCount == 0)
+                    if(array[y, x].skin == (int)Skins.SkinsList.DefaultPlayer && Player.ShieldCount == 0)
                     {
                         Program.gameOver();
                     }
-                    else if(array[y, x] == (int)Skins.SkinsList.DefaultPlayer && Player.ShieldCount > 0)
+                    else if(array[y, x].skin == (int)Skins.SkinsList.DefaultPlayer && Player.ShieldCount > 0)
                     {
                         Player.ShieldCount--;
                         return false;
                     }
-                    array[y, x] = (int)s;
+                    array[y, x].skin = (int)s;
                     return true;
 
                 }
@@ -64,13 +64,27 @@ namespace ConsoleGameHW6
         }
         public static void clearObj(int x, int y, Skins.SkinsList s)
         {
-            array[y, x] = (int)s;
+            array[y, x].skin = (int)s;
         }
         public static void createNewField(int x,int y)
         {
             XSize = x;
             YSize = y;
-            array = new int[YSize, XSize];
+            array = new Cell[YSize, XSize];
+            Random rnd = new Random();
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int k = 0; k < array.GetLength(1); k++)
+                {
+                    array[i, k] = new Cell();
+                    if(rnd.Next(0,100) >  90)
+                    {
+                        array[i, k].skin = (int)Skins.SkinsList.Tree;
+                    }
+                    else if(rnd.Next(0, 100) > 80)
+                    array[i, k].skin = (int)Skins.SkinsList.Wall;
+                }
+            }
         }
         public static void render()
         {
@@ -90,7 +104,7 @@ namespace ConsoleGameHW6
                     Console.Write("|");
                     Console.ResetColor();
 
-                    switch (array[i, k])
+                    switch (array[i, k].skin)
                     {
                         case 0:
                             Console.ForegroundColor = ConsoleColor.Black;
@@ -110,7 +124,7 @@ namespace ConsoleGameHW6
                         default:
                             break;
                     }
-                    Console.Write($"  {Skins.skinImage[array[i, k]]}  ");
+                    Console.Write($"  {Skins.skinImage[array[i, k].skin]}  ");
                     }
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("|\n");
@@ -133,7 +147,7 @@ namespace ConsoleGameHW6
                 
 
 
-                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x] == (int)Skins.SkinsList.Empty || array[y, x] == (int)Skins.SkinsList.Stick))
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x].skin == (int)Skins.SkinsList.Empty || array[y, x].skin == (int)Skins.SkinsList.Stick))
                 {
                     nearClear = true;
                 }
@@ -147,7 +161,7 @@ namespace ConsoleGameHW6
 
 
 
-                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x] == (int)Skins.SkinsList.Empty || array[y, x] == (int)Skins.SkinsList.Stick))
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x].skin == (int)Skins.SkinsList.Empty || array[y, x].skin == (int)Skins.SkinsList.Stick))
                 {
                     nearClear = true;
                 }
@@ -160,7 +174,7 @@ namespace ConsoleGameHW6
             {
 
 
-                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x] == (int)Skins.SkinsList.Empty || array[y, x] == (int)Skins.SkinsList.Stick))
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x].skin == (int)Skins.SkinsList.Empty || array[y, x].skin == (int)Skins.SkinsList.Stick))
                 {
                     nearClear = true;
                 }
@@ -173,7 +187,7 @@ namespace ConsoleGameHW6
             {
 
 
-                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x] == (int)Skins.SkinsList.Empty || array[y, x] == (int)Skins.SkinsList.Stick))
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x].skin == (int)Skins.SkinsList.Empty || array[y, x].skin == (int)Skins.SkinsList.Stick))
                 {
                     nearClear = true;
                 }
