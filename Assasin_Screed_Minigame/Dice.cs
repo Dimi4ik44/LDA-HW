@@ -6,19 +6,25 @@ namespace Assasin_Screed_Minigame
 {
     public class Dice
     {
-        public bool HaveBorder { get; set; }
-        public int Side { get; set; }
-        enum DiceSide
+        Random rnd = new Random();
+        public enum DiceSides
         {
             Axe = 1,
             Arrow,
             Helmet,
             Shield,
-            Hand           
+            Hand,
+            Empty
         }
-        public void throwDice()
+        public DiceSide[] Sides { get; private set; }
+        public DiceSide UpSide { get; private set; }
+        public Dice(DiceSide[] sideSign)
         {
-
+            Sides = sideSign;
+        }
+        public void Roll()
+        {
+            UpSide = Sides[rnd.Next(0, Sides.Length)];
         }
 
     }
