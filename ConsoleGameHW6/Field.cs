@@ -121,5 +121,68 @@ namespace ConsoleGameHW6
                 Console.ResetColor();
 
         }
+        public static bool checkNear(int x, int y)
+        {
+            bool nearClear = false;
+            int xCopy = x;
+            int yCopy = y;
+
+            x -= 1;
+            if (x >= 0 && x < XSize && y >= 0 && y < YSize)
+            {
+                
+
+
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x] == (int)Skins.SkinsList.Empty || array[y, x] == (int)Skins.SkinsList.Stick))
+                {
+                    nearClear = true;
+                }
+            }
+            x = xCopy;
+            y = yCopy;
+
+            x += 1;
+            if (x >= 0 && x < XSize && y >= 0 && y < YSize)
+            {
+
+
+
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x] == (int)Skins.SkinsList.Empty || array[y, x] == (int)Skins.SkinsList.Stick))
+                {
+                    nearClear = true;
+                }
+            }
+            x = xCopy;
+            y = yCopy;
+
+            y -= 1;
+            if (x >= 0 && x < XSize && y >= 0 && y < YSize)
+            {
+
+
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x] == (int)Skins.SkinsList.Empty || array[y, x] == (int)Skins.SkinsList.Stick))
+                {
+                    nearClear = true;
+                }
+            }
+            x = xCopy;
+            y = yCopy;
+
+            y += 1;
+            if (x >= 0 && x < XSize && y >= 0 && y < YSize)
+            {
+
+
+                if (x >= 0 && x < XSize && y >= 0 && y < YSize && (array[y, x] == (int)Skins.SkinsList.Empty || array[y, x] == (int)Skins.SkinsList.Stick))
+                {
+                    nearClear = true;
+                }
+            }
+            x = xCopy;
+            y = yCopy;
+
+
+            return nearClear;
+        }
     }
 }

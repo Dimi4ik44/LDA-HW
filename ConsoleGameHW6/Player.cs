@@ -88,10 +88,5 @@ namespace ConsoleGameHW6
         {
             ShieldCount ++;
         }
-        //public bool cnanMove()
-        //{
-        //    if (Field.ChangeField[YPos + 1,XPos] == 0)
-        //        return true;
-        //}
     }
 }

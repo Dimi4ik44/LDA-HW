@@ -31,7 +31,12 @@ namespace ConsoleGameHW6
                     Field.render();
                     Console.WriteLine($"Total Enemys: {Enemy.enemyCount}  Shields: {Player.ShieldCount}");
 
-                }     
+                }
+                if (!Field.checkNear(p.XPos, p.YPos))
+                {
+                    //Console.WriteLine("lol");
+                    gameOver();
+                }
             }
             Console.WriteLine("Game Over");
         }
