@@ -9,6 +9,7 @@ namespace Assasin_Screed_Minigame
         public int Health { get; set; }
         public int VictimToken { get; set; }
         public int DiceReroll { get; private set; }
+        public int Selector { get; set; } = 0;
         public Dice[] _Dice { get; set; }
         public Dice[] SelectedDice { get; set; }
         public Entity()
@@ -16,6 +17,7 @@ namespace Assasin_Screed_Minigame
             Health = 15;
             VictimToken = 0;
             DiceReroll = 3;
+            SelectedDice = new Dice[0];
             _Dice = new Dice[]{
                 (new Dice
                 (new DiceSide[]{
@@ -80,6 +82,30 @@ namespace Assasin_Screed_Minigame
                 item.Roll();
             }
             return true;
+        }
+        public bool reRollDice()
+        {
+            if(DiceReroll > 0)
+            {
+                foreach (Dice item in _Dice)
+                {
+                    item.Roll();
+                }
+                DiceReroll--;
+                return true;
+            }
+            return false;
+            
+        }
+        public void resetSelection()
+        {
+            Selector = 0;
+        }
+        public virtual void selectDice()
+        {
+            SelectedDice = new Dice[_Dice.Length];
+            Array.Copy(_Dice,SelectedDice,_Dice.Length);
+            _Dice = new Dice[0];
         }
     }
 }
