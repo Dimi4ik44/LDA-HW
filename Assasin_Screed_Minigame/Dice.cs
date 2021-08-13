@@ -26,6 +26,39 @@ namespace Assasin_Screed_Minigame
         {
             UpSide = Sides[rnd.Next(0, Sides.Length)];
         }
+        public override string ToString()
+        {
+            string converted = string.Empty;
+            switch (UpSide.Sign)
+            {
+                case DiceSides.Axe:
+                    converted = "Axe";
+                    break;
+                case DiceSides.Arrow:
+                    converted = "Arrow";
+                    break;
+                case DiceSides.Helmet:
+                    converted = "Helmet";
+                    break;
+                case DiceSides.Shield:
+                    converted = "Shield";
+                    break;
+                case DiceSides.Hand:
+                    converted = "Hand";
+                    break;
+                case DiceSides.Empty:
+                    converted = "Empty";
+                    break;
+                default:
+                    converted = "Null";
+                    break;
+            }
+            if (UpSide.Border)
+            {
+                converted += "+Border";
+            }
+            return converted;
+        }
 
     }
 }
