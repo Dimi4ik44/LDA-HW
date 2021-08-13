@@ -30,8 +30,7 @@ namespace Assasin_Screed_Minigame
                 p1.rollDice();
                 
             }
-            p1.rollDice();
-            p2.rollDice();
+
             showTable();
         }
         public void showTable()

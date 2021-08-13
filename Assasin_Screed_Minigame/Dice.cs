@@ -21,6 +21,7 @@ namespace Assasin_Screed_Minigame
         public Dice(DiceSide[] sideSign)
         {
             Sides = sideSign;
+            UpSide = Sides[0];
         }
         public void Roll()
         {
