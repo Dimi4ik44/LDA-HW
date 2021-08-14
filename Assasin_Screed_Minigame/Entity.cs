@@ -10,6 +10,7 @@ namespace Assasin_Screed_Minigame
         public int VictimToken { get; set; }
         public int DiceReroll { get; private set; }
         public int Selector { get; set; } = 0;
+        public bool Turn { get; set; } = false;
         public Dice[] _Dice { get; set; }
         public Dice[] SelectedDice { get { return selectedDice; } set { selectedDice = value; } }
         private Dice[] selectedDice;
@@ -96,6 +97,7 @@ namespace Assasin_Screed_Minigame
                 if(DiceReroll == 0)
                 {
                     selectAllDice();
+                    Turn = false;
                 }
                 return true;
             }
@@ -108,6 +110,12 @@ namespace Assasin_Screed_Minigame
         }
         public virtual void selectDice()
         {
+            if(Selector == 0)
+            {
+                selectAllDice();
+                resetSelection();
+                return;
+            }
             Dice[] sd = new Dice[SelectedDice.Length + 1];
             for (int i = 0; i < SelectedDice.Length; i++)
             {
@@ -125,6 +133,7 @@ namespace Assasin_Screed_Minigame
                 counter++;
             }
             _Dice = d;
+            resetSelection();
         }
         public void selectAllDice()
         {
@@ -135,6 +144,7 @@ namespace Assasin_Screed_Minigame
                 SelectedDice[startIndexSelectedDice++] = _Dice[i];
             }
             _Dice = new Dice[0];
+            Turn = false;
         }
     }
 }

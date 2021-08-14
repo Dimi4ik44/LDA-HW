@@ -29,6 +29,137 @@ namespace Assasin_Screed_Minigame
                 player = p2 as Player;
                 enemy = p1 as Enemy;
             }
+
+            switch (_Coin.coinState)
+            {
+                case 1:
+                    p1.rollDice();
+                    if(p1.IsPlayer())
+                    {
+                        bool exitWhile = false;
+                        while (!exitWhile)
+                        {
+                            if (p1._Dice.Length <= 0)
+                            {
+                                exitWhile = true;
+                                continue;
+                            }
+                            switch (Console.ReadKey().Key)
+                            {
+                                case ConsoleKey.LeftArrow:
+                                    (p1 as Player).moveSelector(Player.SelectorMove.Left);
+                                    showTable();
+                                    break;
+                                case ConsoleKey.RightArrow:
+                                    (p1 as Player).moveSelector(Player.SelectorMove.Right);
+                                    showTable();
+                                    break;
+                                case ConsoleKey.Enter:
+                                    p1.selectDice();
+                                    p1.resetSelection();
+                                    showTable();
+                                    break;
+                                case ConsoleKey.Backspace when p1.reRollDice():
+                                    showTable();
+                                    break;
+                                case ConsoleKey.Escape:
+                                    exitWhile = true;
+                                    showTable();
+                                    break;
+                                default:
+                                    continue;
+                            }
+                        }
+                    }
+                    p2.rollDice();
+                    if (p2.IsPlayer())
+                    {
+                        bool exitWhile = false;
+                        while (!exitWhile)
+                        {
+                            if (p2._Dice.Length <= 0)
+                            {
+                                exitWhile = true;
+                                continue;
+                            }
+                            switch (Console.ReadKey().Key)
+                            {
+                                case ConsoleKey.LeftArrow:
+                                    (p2 as Player).moveSelector(Player.SelectorMove.Left);
+                                    showTable();
+                                    break;
+                                case ConsoleKey.RightArrow:
+                                    (p2 as Player).moveSelector(Player.SelectorMove.Right);
+                                    showTable();
+                                    break;
+                                case ConsoleKey.Enter:
+                                    p2.selectDice();
+                                    p2.resetSelection();
+                                    showTable();
+                                    break;
+                                case ConsoleKey.Backspace when p2.reRollDice():
+                                    showTable();
+                                    break;
+                                case ConsoleKey.Escape:
+                                    exitWhile = true;
+                                    showTable();
+                                    break;
+                                default:
+                                    continue;
+                            }
+                        }
+                    }
+
+                    break;
+                case 2:
+                    p2.rollDice();
+                    if (p2.IsPlayer())
+                    {
+                        bool exitWhile = false;
+                        while (!exitWhile)
+                        {
+                            if (p2._Dice.Length <= 0)
+                            {
+                                exitWhile = true;
+                                continue;
+                            }
+                            switch (Console.ReadKey().Key)
+                            {
+                                case ConsoleKey.LeftArrow:
+                                    (p2 as Player).moveSelector(Player.SelectorMove.Left);
+                                    showTable();
+                                    break;
+                                case ConsoleKey.RightArrow:
+                                    (p2 as Player).moveSelector(Player.SelectorMove.Right);
+                                    showTable();
+                                    break;
+                                case ConsoleKey.Enter:
+                                    p2.selectDice();
+                                    p2.resetSelection();
+                                    showTable();
+                                    break;
+                                case ConsoleKey.Backspace when p2.reRollDice():
+                                    showTable();
+                                    break;
+                                case ConsoleKey.Escape:
+                                    exitWhile = true;
+                                    showTable();
+                                    break;
+                                default:
+                                    continue;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+
+
+
+
+
             Console.WriteLine("Hello litle boyyyy))))");
             Console.WriteLine("Lets PLAYYY");
             Console.WriteLine("Throwing a Coin.......");
@@ -58,7 +189,7 @@ namespace Assasin_Screed_Minigame
                             player.moveSelector(Player.SelectorMove.Right);
                             showTable();
                             break;
-                        case ConsoleKey.Enter when player.Selector >= 1 && player.Selector <= player._Dice.Length:
+                        case ConsoleKey.Enter:
                             player.selectDice();
                             player.resetSelection();
                             showTable();
