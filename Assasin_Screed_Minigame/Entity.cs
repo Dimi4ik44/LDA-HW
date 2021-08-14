@@ -146,5 +146,31 @@ namespace Assasin_Screed_Minigame
             _Dice = new Dice[0];
             Turn = false;
         }
+
+        public bool takeDamage(int damage)
+        {
+            if(Health > 0)
+            {
+                if (Health - damage >= 0)
+                {
+                    Health -= damage;
+                }
+                else Health = 0;
+                return true;
+            }
+            return false;
+        }
+        public void getVictimTokens(int count)
+        {
+            VictimToken += count;
+        }
+        public void loseVictimTokens(int count)
+        {
+            if (VictimToken - count <= 0)
+            {
+                VictimToken = 0;
+            }
+            else VictimToken -= count;
+        }
     }
 }

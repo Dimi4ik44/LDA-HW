@@ -16,6 +16,11 @@ namespace Assasin_Screed_Minigame
             Hand,
             Empty
         }
+        public static DiceSides[,] DiceCoverPattern { get; private set; } = new DiceSides[,] 
+        {
+            { DiceSides.Arrow, DiceSides.Shield },
+            { DiceSides.Axe, DiceSides.Helmet }, 
+        };
         public DiceSide[] Sides { get; private set; }
         public DiceSide UpSide { get; private set; }
         public Dice(DiceSide[] sideSign)
