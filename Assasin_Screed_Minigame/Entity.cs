@@ -11,7 +11,8 @@ namespace Assasin_Screed_Minigame
         public int DiceReroll { get; private set; }
         public int Selector { get; set; } = 0;
         public Dice[] _Dice { get; set; }
-        public Dice[] SelectedDice { get; set; }
+        public Dice[] SelectedDice { get { return selectedDice; } set { selectedDice = value; } }
+        private Dice[] selectedDice;
         public Entity()
         {
             Health = 15;
@@ -92,6 +93,10 @@ namespace Assasin_Screed_Minigame
                     item.Roll();
                 }
                 DiceReroll--;
+                if(DiceReroll == 0)
+                {
+                    selectAllDice();
+                }
                 return true;
             }
             return false;
@@ -103,8 +108,32 @@ namespace Assasin_Screed_Minigame
         }
         public virtual void selectDice()
         {
-            SelectedDice = new Dice[_Dice.Length];
-            Array.Copy(_Dice,SelectedDice,_Dice.Length);
+            Dice[] sd = new Dice[SelectedDice.Length + 1];
+            for (int i = 0; i < SelectedDice.Length; i++)
+            {
+                sd[i] = SelectedDice[i];
+            }
+            sd[sd.Length - 1] = _Dice[Selector - 1];
+            SelectedDice = sd;
+
+            Dice[] d = new Dice[_Dice.Length - 1];
+            int counter = 0;
+            for (int i = 0; i < _Dice.Length; i++)
+            {
+                if (i == Selector - 1) continue;
+                d[counter] = _Dice[i];
+                counter++;
+            }
+            _Dice = d;
+        }
+        public void selectAllDice()
+        {
+            int startIndexSelectedDice = SelectedDice.Length;
+            Array.Resize(ref selectedDice, SelectedDice.Length + _Dice.Length);
+            for (int i = 0; i < _Dice.Length; i++)
+            {
+                SelectedDice[startIndexSelectedDice++] = _Dice[i];
+            }
             _Dice = new Dice[0];
         }
     }

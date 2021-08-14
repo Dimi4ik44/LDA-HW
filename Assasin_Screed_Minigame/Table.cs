@@ -75,7 +75,7 @@ namespace Assasin_Screed_Minigame
                 
             }
             enemy.rollDice();
-            enemy.selectDice();
+            enemy.selectAllDice();
             showTable();
         }
         public void showTable()
