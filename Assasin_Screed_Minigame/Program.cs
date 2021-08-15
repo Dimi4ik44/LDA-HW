@@ -9,7 +9,7 @@ namespace Assasin_Screed_Minigame
         {
             Player p = new Player();
             Enemy e = new Enemy();
-            Table table = new Table(p,e);
+            Table table = new Table(e,p);
             table.startGame();
             
         }

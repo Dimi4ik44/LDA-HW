@@ -258,32 +258,23 @@ namespace Assasin_Screed_Minigame
                 stringP2 = "Player";
             }
             Console.Clear();
-            Console.WriteLine($"{stringP1} | Health: {p1.Health}  VictimTokens: {p1.VictimToken}  RerollCount: {p1.DiceReroll}");
+            //Console.BackgroundColor = ConsoleColor.Magenta;
+            showPlayerStatistic(p1, stringP1);
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Dice:");
+            Console.ResetColor();
             Console.Write("\t");
-            for (int i = 0; i < p1._Dice.Length; i++)
-            {
-                if (i+1 == (p1 as Player)?.Selector)
-                {
-                    Console.Write("-> " + p1._Dice[i].ToString() + "   ");
-                    continue;
-                }
-                Console.Write(p1._Dice[i].ToString() + "   ");
-            }
+            renderDice(p1);
             //foreach (Dice item in p1._Dice)
             //{
             //    Console.Write(item.ToString()+"   ");
             //}
             Console.WriteLine();
-            Console.WriteLine("Selected dice:");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Selected Dice:");
+            Console.ResetColor();
             Console.Write("\t");
-            if (p1.SelectedDice.Length > 0)
-            {
-                foreach (Dice item in p1.SelectedDice)
-                {
-                    Console.Write(item.ToString() + "   ");
-                }
-            }
+            RenderSelectedDice(p1.SelectedDice);
 
             Console.WriteLine();
             Console.WriteLine();
@@ -293,27 +284,19 @@ namespace Assasin_Screed_Minigame
             Console.WriteLine();
 
             Console.Write("\t");
-            if (p2.SelectedDice.Length > 0)
-            {
-                foreach (Dice item in p2.SelectedDice)
-                {
-                    Console.Write(item.ToString() + "   ");
-                }
-            }
+            RenderSelectedDice(p2.SelectedDice);
             Console.WriteLine();
-            Console.WriteLine("Selected dice:");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Selected Dice:");
+            Console.ResetColor();
             Console.Write("\t");
-            for (int i = 0; i < p2._Dice.Length; i++)
-            {   if(i+1 == (p2 as Player)?.Selector)
-                {
-                    Console.Write("-> "+p2._Dice[i].ToString() + "   ");
-                    continue;
-                }
-                Console.Write(p2._Dice[i].ToString() + "   ");
-            }
+
+            renderDice(p2);
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Dice:");
-            Console.WriteLine($"{stringP2} | Health: {p2.Health}  VictimTokens: {p2.VictimToken}  RerollCount: {p2.DiceReroll}");
+            Console.ResetColor();
+            showPlayerStatistic(p2,stringP2);
         }
         public void Action(Entity p1, Entity p2)
         {
@@ -373,6 +356,111 @@ namespace Assasin_Screed_Minigame
                             return;
                         }
                 }
+            }
+        }
+        private void showPlayerStatistic(Entity e,string name)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue; Console.Write($"{name} | "); Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Red; Console.Write($"Health: {e.Health} | "); Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow; Console.Write($"VictimTokens: {e.VictimToken} | "); Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green; Console.Write($"RerollCount: {e.DiceReroll} |"); Console.ResetColor();
+            Console.WriteLine();
+        }
+        private void RenderSelectedDice(Dice[] d)
+        {
+            if (d.Length > 0)
+            {
+                foreach (Dice item in d)
+                {
+                    switch (item.UpSide.Sign)
+                    {
+                        case Dice.DiceSides.Axe:
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            break;
+                        case Dice.DiceSides.Arrow:
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            break;
+                        case Dice.DiceSides.Helmet:
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            break;
+                        case Dice.DiceSides.Shield:
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            break;
+                        case Dice.DiceSides.Hand:
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                            break;
+                        case Dice.DiceSides.Empty:
+                            Console.ForegroundColor = ConsoleColor.White;
+                            break;
+                        default:
+                            break;
+                    }
+                    Console.Write(item.ToString() + "   ");
+                    Console.ResetColor();
+                }
+            }
+        }
+        private void renderDice(Entity e)
+        {
+            for (int i = 0; i < e._Dice.Length; i++)
+            {
+                if (i + 1 == (e as Player)?.Selector)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("-> ");
+                    Console.ResetColor();
+                    switch (e._Dice[i].UpSide.Sign)
+                    {
+                        case Dice.DiceSides.Axe:
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            break;
+                        case Dice.DiceSides.Arrow:
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            break;
+                        case Dice.DiceSides.Helmet:
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            break;
+                        case Dice.DiceSides.Shield:
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            break;
+                        case Dice.DiceSides.Hand:
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                            break;
+                        case Dice.DiceSides.Empty:
+                            Console.ForegroundColor = ConsoleColor.White;
+                            break;
+                        default:
+                            break;
+                    }
+                    Console.Write(e._Dice[i].ToString() + "   ");
+                    Console.ResetColor();
+                    continue;
+                }
+                switch (e._Dice[i].UpSide.Sign)
+                {
+                    case Dice.DiceSides.Axe:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        break;
+                    case Dice.DiceSides.Arrow:
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        break;
+                    case Dice.DiceSides.Helmet:
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        break;
+                    case Dice.DiceSides.Shield:
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        break;
+                    case Dice.DiceSides.Hand:
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        break;
+                    case Dice.DiceSides.Empty:
+                        Console.ForegroundColor = ConsoleColor.White;
+                        break;
+                    default:
+                        break;
+                }
+                Console.Write(e._Dice[i].ToString() + "   ");
+                Console.ResetColor();
             }
         }
     }
