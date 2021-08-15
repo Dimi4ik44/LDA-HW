@@ -14,24 +14,37 @@ namespace Assasin_Screed_Minigame
         {
             return e is Enemy;
         }
-        public static void DiseSort(this Dice[] Dice, Dice.DiceSides[] sortPattern)
+        public static void DiceSort(this Dice[] _Dice, Dice.DiceSides[] sortPattern)
         {
             Dice temp;
             int counter = 0;
             for (int i = 0; i < sortPattern.Length; i++)
             {
-                for (int k = 0; k < Dice.Length; k++)
+                for (int k = 0; k < _Dice.Length; k++)
                 {
-                    if(Dice[k].UpSide.Sign == sortPattern[i])
+                    if(_Dice[k].UpSide.Sign == sortPattern[i])
                     {
-                        temp = Dice[counter];
-                        Dice[counter] = Dice[k];
-                        Dice[k] = temp;
+                        temp = _Dice[counter];
+                        _Dice[counter] = _Dice[k];
+                        _Dice[k] = temp;
                         counter++;
 
                     }
                 }
             }
+        }
+        public static Dice[] DiceRemoveByIndex(this Dice[] _Dice, int index) //????? cant use just _Dice = d; Why must use return??????
+        {
+            Dice[] d = new Dice[_Dice.Length - 1];
+            int counter = 0;
+            for (int i = 0; i < _Dice.Length; i++)
+            {
+                if (i == index) continue;
+                d[counter] = _Dice[i];
+                counter++;
+            }
+            return d;
+            
         }
         public static void DiseSort (this Dice[] _Dice, Dice[] second, Dice.DiceSides[] sortPattern) // soon
         {

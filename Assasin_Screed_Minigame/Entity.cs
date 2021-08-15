@@ -6,8 +6,10 @@ namespace Assasin_Screed_Minigame
 {
     public class Entity
     {
+        private DeffaultDiceKit ddk = new DeffaultDiceKit();
         public int Health { get; set; }
         public int VictimToken { get; set; }
+        public bool IsDead { get; set; } = false;
         public int DiceReroll { get; private set; }
         public int Selector { get; set; } = 0;
         public bool Turn { get; set; } = false;
@@ -20,62 +22,7 @@ namespace Assasin_Screed_Minigame
             VictimToken = 0;
             DiceReroll = 3;
             SelectedDice = new Dice[0];
-            _Dice = new Dice[]{
-                (new Dice
-                (new DiceSide[]{
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Arrow, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Axe, false),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Helmet, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Hand, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Shield, false),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Empty, true)
-                })),
-                (new Dice
-                (new DiceSide[]{
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Arrow, false),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Axe, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Helmet, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Hand, false),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Shield, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Empty, true)
-                })),
-                (new Dice
-                (new DiceSide[]{
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Arrow, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Axe, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Helmet, false),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Hand, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Shield, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Empty, false)
-                })),
-                (new Dice
-                (new DiceSide[]{
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Arrow, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Axe, false),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Helmet, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Hand, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Shield, false),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Empty, true)
-                })),
-                (new Dice
-                (new DiceSide[]{
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Arrow, false),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Axe, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Helmet, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Hand, false),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Shield, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Empty, true)
-                })),
-                (new Dice
-                (new DiceSide[]{
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Arrow, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Axe, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Helmet, false),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Hand, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Shield, true),
-                    new DiceSide(Assasin_Screed_Minigame.Dice.DiceSides.Empty, false)
-                })),
-            };
+            _Dice = ddk.diceCit;
         }
         public bool rollDice()
         {
@@ -99,6 +46,7 @@ namespace Assasin_Screed_Minigame
                     selectAllDice();
                     Turn = false;
                 }
+                resetSelection();
                 return true;
             }
             return false;
@@ -154,8 +102,13 @@ namespace Assasin_Screed_Minigame
                 if (Health - damage >= 0)
                 {
                     Health -= damage;
+                    IsDead = Health <= 0 ? true : false;
                 }
-                else Health = 0;
+                else
+                {
+                    Health = 0;
+                    IsDead = true;
+                }
                 return true;
             }
             return false;
@@ -171,6 +124,22 @@ namespace Assasin_Screed_Minigame
                 VictimToken = 0;
             }
             else VictimToken -= count;
+        }
+        public void resetDice()
+        {
+            _Dice = ddk.diceCit;
+        }
+        public void resetSelectedDice()
+        {
+            SelectedDice = new Dice[0];
+        }
+        public void reset()
+        {
+            resetDice();
+            resetSelectedDice();
+            resetSelection();
+            DiceReroll = 3;
+            
         }
     }
 }
