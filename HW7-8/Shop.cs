@@ -8,5 +8,7 @@ namespace HW7_8
     {
         public Employee[] Employees { get; set; }
         public Customer[] Customers { get; set; }
+        public StockRoom[] ShopStocks { get; set; }
+        public ShowCase[] ShopShowCases { get; set; }
     }
 }
