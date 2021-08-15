@@ -6,6 +6,7 @@ namespace HW7_8
 {
     class Shop
     {
-
+        public Employee[] Employees { get; set; }
+        public Customer[] Customers { get; set; }
     }
 }

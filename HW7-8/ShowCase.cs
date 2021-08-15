@@ -4,8 +4,7 @@ using System.Text;
 
 namespace HW7_8
 {
-    class StockRoom
+    class ShowCase
     {
-        public DateTime LastArrival { get; set; }
     }
 }
