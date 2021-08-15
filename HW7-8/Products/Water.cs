@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HW7_8.Products
 {
-    class Water
+    class Water : Product 
     {
     }
 }
