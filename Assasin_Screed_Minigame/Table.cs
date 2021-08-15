@@ -221,6 +221,7 @@ namespace Assasin_Screed_Minigame
                     if (Dice.UpSide.Border) p2.getVictimTokens(1);
                 }
                 showTable();
+                Console.ReadKey(true);
                 for (int i = 0; i < 6; i++)
                 {
                     Action(p1, p2);
@@ -230,6 +231,7 @@ namespace Assasin_Screed_Minigame
                     Action(p2, p1);
                 }
                 showTable();
+                Console.ReadKey(true);
             }
             if(!p1.IsDead)
             {
