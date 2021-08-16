@@ -22,15 +22,6 @@ namespace HW7_8
             Ammount = ammount;
             _Brand = brand == null ? new Brand("Empty") : brand;
         }
-        public Product(string name) // temp
-        {
-            NameOfProduct = name;
-        }
-
-        //public Product(Brand brand) : this
-        //{
-        //    _Brand = brand;
-        //}
         public int SetUseUntil(DateTime date)
         {
             // 0 - All done, 1 - Date selected now, 2 - nothing been changed
@@ -58,7 +49,7 @@ namespace HW7_8
         }
         public bool ProductFreshCheck()
         {
-            if(UseUntil <= DateTime.Now)
+            if(UseUntil < DateTime.Now)
             {
                 return false;
             }

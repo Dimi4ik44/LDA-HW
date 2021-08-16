@@ -49,6 +49,6 @@ namespace HW7_8
                 ptemp = d;
             }
             return ptemp;
-        }
+        }//usless
     }
 }

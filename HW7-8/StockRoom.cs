@@ -12,7 +12,8 @@ namespace HW7_8
         public Product[] ProductsInStock { get; set; }
         public StockRoom(int id)
         {
-
+            IdStock = id;
+            ProductsInStock = new Product[0];
         }
         private void RefreshCount()
         {
@@ -20,13 +21,21 @@ namespace HW7_8
         }
         public bool RefillProducts(Product[] products)
         {
-            ProductsInStock.ProductsAppend(products);
+            ProductsInStock = ProductsInStock.ProductsAppend(products);
             RefreshCount();
             return true;
         }
         public void RemoveSpoiledProducts()
         {
-            //ProductsInStock
+            for (int i = 0; i < ProductsInStock.Length; i++)
+            {
+                if(!ProductsInStock[i].ProductFreshCheck())
+                {
+                    ProductsInStock = ProductsInStock.ProductRemoveByIndex(i);
+                    i--;
+                }
+            }
+            RefreshCount();
         }
     }
 }
