@@ -18,6 +18,7 @@ namespace HW7_8
             ShopId = id;
             ShopName = name;
             Customers = new Customer[0];
+            Employees = employee == null ? new Employee[0] : employee;
             Stocks = stocks == null ? new StockRoom[0] : stocks;
             ShowCases = showcases == null ? new ShowCase[0] : showcases;
         }

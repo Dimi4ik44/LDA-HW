@@ -6,10 +6,10 @@ namespace HW7_8
 {
     class StockRoom
     {
-        public int IdStock { get; set; }
-        public int ProductCount { get; set; }
-        public DateTime LastArrival { get; set; }
-        public Product[] ProductsInStock { get; set; }
+        public int IdStock { get; private set; }
+        public int ProductCount { get; private set; }
+        public DateTime LastArrival { get; private set; }
+        public Product[] ProductsInStock { get; private set; }
         public StockRoom(int id)
         {
             IdStock = id;
@@ -21,6 +21,7 @@ namespace HW7_8
         }
         public bool RefillProducts(Product[] products)
         {
+            LastArrival = DateTime.Now;
             ProductsInStock = ProductsInStock.ProductsAppend(products);
             RefreshCount();
             return true;

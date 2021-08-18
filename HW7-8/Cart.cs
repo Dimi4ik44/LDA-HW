@@ -6,7 +6,8 @@ namespace HW7_8
 {
     class Cart
     {
-        public Product[] Products { get; set; }
+        public Customer Owmer { get; set; }
+        public Product[] Products { get; private set; }
         public bool addProduct(Product p)
         {
             Product[] temp = new Product[Products.Length];

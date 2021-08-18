@@ -6,8 +6,8 @@ namespace HW7_8
 {
     class Employee : Person
     {
-        public int Salary { get; set; }
-        public Positions.PositionList Position { get; set; }
+        public int Salary { get; private set; }
+        public Positions.PositionList Position { get; private set; }
         public Employee(string name, int age, int moveSpeed, Positions.PositionList position) : base(name, age, moveSpeed)
         {
             Position = position;
@@ -19,6 +19,11 @@ namespace HW7_8
         {
             Position = position;
             Positions p = new Positions();
+            Salary = p.getSallory(Position);
+        }
+        public void SetEmployeePos(Positions.PositionList pos)
+        {
+            Position = pos;
             Salary = p.getSallory(Position);
         }
     }

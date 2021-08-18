@@ -6,10 +6,12 @@ namespace HW7_8
 {
     class Person
     {
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public int MoveSpeed { get; set; }
-        public string About { get; set; }
+        public string Name { get; private set; }
+        public int Age { get; private set; }
+        public int MoveSpeed { get; private set; }
+        public int MaxMoveSpeed { get; private set; } = 10;
+        public int MinMoveSpeed { get; private set; } = 0;
+        public string About { get; private set; }
         public Person(string name, int age, int moveSpeed)
         {
             Name = name;
@@ -24,6 +26,15 @@ namespace HW7_8
             MoveSpeed = moveSpeed;
             About = about;
 
+        }
+        public bool ChangeMoveSpeed(int speed)
+        {
+            if(speed >= MinMoveSpeed && speed <= MaxMoveSpeed)
+            {
+                MoveSpeed = speed;
+                return true;
+            }
+            return false;
         }
     }
 }
