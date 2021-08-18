@@ -7,24 +7,22 @@ namespace HW7_8
     class Employee : Person
     {
         public int Salary { get; private set; }
-        public Positions.PositionList Position { get; private set; }
-        public Employee(string name, int age, int moveSpeed, Positions.PositionList position) : base(name, age, moveSpeed)
+        public Position _Position { get; private set; }
+        public Employee(string name, int age, Position position, int moveSpeed = 0) : base(name, age, moveSpeed)
         {
-            Position = position;
-            Positions p = new Positions();
-            Salary = p.getSallory(Position);
+            _Position = position;
+            Salary = position.getSalary();
         }
 
-        public Employee(string name, int age, int moveSpeed, string about, Positions.PositionList position) : base(name, age, moveSpeed, about)
+        public Employee(string name, int age, string about, Position position, int moveSpeed = 0) : base(name, age, about, moveSpeed)
         {
-            Position = position;
-            Positions p = new Positions();
-            Salary = p.getSallory(Position);
+            _Position = position;
+            Salary = position.getSalary();
         }
-        public void SetEmployeePos(Positions.PositionList pos)
+        public void SetEmployeePos(Position pos)
         {
-            Position = pos;
-            Salary = p.getSallory(Position);
+            _Position = pos;
+            Salary = pos.getSalary();
         }
     }
 }

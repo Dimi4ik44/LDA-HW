@@ -6,25 +6,33 @@ namespace HW7_8
 {
     class Positions
     {
-        public enum PositionList
+        Position[] positions = new Position[10];
+        public Positions()
         {
-            Manager = 0,
-            Janitor,
-            Сashier,
-            Accountant,
-            Supplier
+            for (int i = 0; i < positions.Length; i++)
+            {
+                positions[i] = new Position();
+            }
         }
-        public int[] Sallorys { get; set; } =
+        public Positions(Position[] positions)
         {
-            200,
-            50,
-            100,
-            150,
-            30
-        };
-        public int getSallory(PositionList p)
-        {
-            return Sallorys[(int)p];
+            this.positions = positions;
         }
+        public Position GetPositionById(int id)
+        {
+            if(id < positions.Length && id >= 0)
+            {
+                for (int i = 0; i < positions.Length; i++)
+                {
+                    if (i == id - 1 && positions[i].Inited)
+                    {
+                        return positions[i];
+                    }
+                }
+            }
+            return new Position();
+        }
+
+
     }
 }

@@ -14,11 +14,11 @@ namespace HW7_8
             _Cart = new Cart();
         }
 
-        public Customer(string name, int age, int moveSpeed, string about) : base(name, age, moveSpeed, about)
+        public Customer(string name, int age, string about, int moveSpeed = 0) : base(name, age, about, moveSpeed)
         {
             _Cart = new Cart();
         }
-        public Customer(string name, int age, int moveSpeed, string about, int money) : base(name, age, moveSpeed, about)
+        public Customer(string name, int age, string about, int money, int moveSpeed = 0) : base(name, age, about, moveSpeed)
         {
             _Cart = new Cart();
             CurrentMoneyValue = money;
