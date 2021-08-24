@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Numerics;
 
 namespace HW7_8
 {
-    class Person
+    abstract class Person : IMovable
     {
         public string Name { get; private set; }
         public int Age { get; private set; }
+        public Vector3 MyProperty { get; set; }
         public int MoveSpeed { get; private set; }
         public int MaxMoveSpeed { get; private set; } = 10;
         public int MinMoveSpeed { get; private set; } = 0;
@@ -30,6 +32,10 @@ namespace HW7_8
                 MoveSpeed = speed;
                 return true;
             }
+            return false;
+        }
+        public bool Move()
+        {
             return false;
         }
     }

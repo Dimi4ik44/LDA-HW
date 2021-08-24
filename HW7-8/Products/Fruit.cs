@@ -6,7 +6,7 @@ namespace HW7_8.Products
 {
     class Fruit : Product
     {
-        public Fruit(string name, DateTime UseDate, int ammount, float mass, Brand brand) : base(name, UseDate, ammount, mass, brand)
+        public Fruit(string name, DateTime UseDate, int ammount, int price, float mass, Brand brand) : base(name, UseDate, ammount, price, mass, brand)
         {
         }
     }
