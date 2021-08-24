@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HW7_8
 {
-    class Product : ISellable
+    abstract class Product : ISellable, IFreshState
     {
         public DateTime DateOfManufacture { get; private set; }
         public DateTime UseUntil { get; private set; }
