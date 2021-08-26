@@ -23,11 +23,11 @@ namespace TEST_1
             MyProperty2 = p2;
             q1CountIncrement();
         }
-        public void Funk(int a)
+        public void FuncQ(int a)
         {
 
         }
-        public int Funk1()
+        public int FuncQ1()
         {
             return 1;
         }

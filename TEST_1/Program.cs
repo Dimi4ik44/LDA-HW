@@ -6,6 +6,8 @@ namespace TEST_1
     {
         static void Main(string[] args)
         {
+            Q1 q = new Q1(1,2,3);
+
             try
             {
                 throw new CustomException("MyException");
