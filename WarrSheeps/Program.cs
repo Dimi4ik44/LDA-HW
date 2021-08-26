@@ -1,12 +1,13 @@
 ﻿using System;
 
-namespace WarrSheeps
+namespace WarrShips
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            PlayerField p = new PlayerField();
+            p.ShowCells();
         }
     }
 }

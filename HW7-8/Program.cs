@@ -1,4 +1,5 @@
 ﻿using System;
+using HW7_8.Products;
 
 namespace HW7_8
 {
@@ -6,7 +7,7 @@ namespace HW7_8
     {
         static void Main(string[] args)
         {
-            Product p = new Product("s",DateTime.Now,2,100,100,null);
+            Product p = new Fruit("s",DateTime.Now,2,100,100,null);
             Console.WriteLine(p._Brand.Name);
             Random rnd = new Random();
             Shop[] shops = new Shop[3];

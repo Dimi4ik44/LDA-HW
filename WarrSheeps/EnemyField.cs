@@ -4,9 +4,9 @@ using System.Text;
 
 namespace WarrShips
 {
-    class PlayerField : Field
+    class EnemyField : Field
     {
-        public PlayerField() : base()
+        public EnemyField() : base()
         {
 
         }

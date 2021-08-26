@@ -9,7 +9,11 @@ namespace WarrShips
             Empty,
             MissedShot,
             Ship,
-            ShotShip,
-            Drowned
-    }
+            ShotShip
+        }
+        public enum CellSelectedState
+        {
+            None,
+            Selected
+        }
 }

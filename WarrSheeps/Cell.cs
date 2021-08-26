@@ -6,5 +6,7 @@ namespace WarrShips
 {
     class Cell
     {
+        public CellState State { get; set; }
+        public Ship ShipHolder { get; set; }
     }
 }
