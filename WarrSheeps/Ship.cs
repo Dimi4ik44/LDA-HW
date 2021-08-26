@@ -38,11 +38,11 @@ namespace WarrShips
         }
         private bool DrovnedCheck()
         {
-            if (State = ShipState.Drowned)
+            if (State == ShipState.Drowned)
             {
                 return true;
             }else
-            if (Health <= 0 && State = ShipState.Normal)
+            if (Health <= 0 && State == ShipState.Normal)
             {
                 State = ShipState.Drowned;
                 return true;

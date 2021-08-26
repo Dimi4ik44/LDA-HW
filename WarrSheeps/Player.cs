@@ -8,5 +8,9 @@ namespace WarrShips
     {
         public PlayerField PField { get; set; }
         public EnemyField EField { get; set; }
+        public Player()
+        {
+
+        }
     }
 }

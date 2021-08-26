@@ -6,8 +6,7 @@ namespace WarrShips
     {
         static void Main(string[] args)
         {
-            PlayerField p = new PlayerField();
-            p.ShowCells();
+            Player p1 = new Player();
         }
     }
 }
