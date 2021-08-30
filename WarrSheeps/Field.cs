@@ -66,6 +66,13 @@ namespace WarrShips
                                     }
                                     Console.Write($"SS\t");
                                     break;
+                                case CellState.NearShip:
+                                    if (Cells[i, k]?.SelectedState == CellSelectedState.Selected)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Green;
+                                    }
+                                    Console.Write($"E\t");
+                                    break;
                                 default:
                                     Console.Write($"NULL\t");
                                     break;
@@ -115,6 +122,13 @@ namespace WarrShips
                                         break;
                                     }
                                     Console.Write($"SS\t");
+                                    break;
+                                case CellState.NearShip:
+                                    if (Cells[i, k]?.SelectedState == CellSelectedState.Selected)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Green;
+                                    }
+                                    Console.Write($"E\t");
                                     break;
                                 default:
                                     Console.Write($"NULL\t");

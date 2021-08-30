@@ -9,7 +9,8 @@ namespace WarrShips
             Empty,
             MissedShot,
             Ship,
-            ShotShip
+            ShotShip,
+            NearShip
         }
         public enum CellSelectedState
         {
