@@ -4,27 +4,17 @@ using System.Text;
 
 namespace WarrShips
 {
-    public enum ShipPosition
-    {
-        Vertical,
-        Horizontal
-    }
-    public enum ShipState
-    {
-        Normal,
-        Drowned,
-    }
     class Ship
     {
         public ShipPosition PosState { get; set; }
         public ShipState State { get; set; }
         public int Length { get; set; }
         public int Health { get; set; }
-        public Ship(int lenght)
+        public Ship(int lenght, ShipPosition shipPosition = ShipPosition.Horizontal)
         {
             Length = lenght;
             Health = lenght;
-            PosState = ShipPosition.Horizontal;
+            PosState = shipPosition;
         }
         public bool TakeDamage()
         {
@@ -35,6 +25,17 @@ namespace WarrShips
                 return true;
             }
             return false;
+        }
+        public void Rotate()
+        {
+            if(PosState == ShipPosition.Horizontal)
+            {
+                PosState = ShipPosition.Vertical;
+            }
+            else
+            {
+                PosState = ShipPosition.Horizontal;
+            }
         }
         private bool DrovnedCheck()
         {
