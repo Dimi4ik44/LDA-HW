@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace WarrShips
 {
-    class Player : IControlable
+    class Player
     {
         public string Name { get; set; }
         public Controls ControlManager { get; set; }
