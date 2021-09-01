@@ -9,6 +9,7 @@ namespace WarrShips
     class Field
     {
         public Cell[,] Cells { get; set; }
+        public Player Owner { get; set; }
 
         public Field()
         {

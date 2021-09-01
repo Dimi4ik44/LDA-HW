@@ -49,6 +49,15 @@ namespace WarrShips
                 Console.WriteLine("Press Enter to end TURN");
                 Console.ReadKey();
             }
+            Console.Clear();
+            if(p1.CheckShips())
+            {
+                Console.WriteLine("P1 WIN");
+            }
+            else
+            {
+                Console.WriteLine("P2 WIN");
+            }
 
             //---------------
 

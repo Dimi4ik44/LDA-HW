@@ -17,6 +17,7 @@ namespace WarrShips
         public Player()
         {
             PField = new Field();
+            PField.Owner = this;
             Ships = new List<Ship>();
             Ships.AddRange(
                 new Ship[]
@@ -242,8 +243,8 @@ namespace WarrShips
             Field seelectedField = EField;
             MoveSelector(Vector2.Zero, seelectedField);
             ShowFields();
-            bool miss = false;
-            while (!miss)
+            bool exit = false;
+            while (!exit)
             {
                 switch (ControlManager.GetInput())
                 {
@@ -260,9 +261,17 @@ namespace WarrShips
                         MoveSelector(Vector2.UnitX, seelectedField);
                         break;
                     case ConsoleKey.Enter:
-                        if(Shoot() == ShootResult.Miss)
+                        ShootResult sr = Shoot();
+                        if(sr == ShootResult.Miss)
                         {
-                            miss = true;
+                            exit = true;
+                        }
+                        if(sr == ShootResult.Hit)
+                        {
+                            if(!EField.Owner.CheckShips())
+                            {
+                                exit = true;
+                            }
                         }
                         break;
                 }
