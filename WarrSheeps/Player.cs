@@ -265,7 +265,7 @@ namespace WarrShips
         {
             foreach (Ship item in Ships)
             {
-                if (item.Health > 0) return true;
+                if (item.State != ShipState.Drowned) return true;
             }
             return false;
         }

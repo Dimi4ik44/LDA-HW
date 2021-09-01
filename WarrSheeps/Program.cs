@@ -26,10 +26,14 @@ namespace WarrShips
             //---------------
             Console.Clear();
             //------------
-            while(true)
+            while (p1.CheckShips() && p2.CheckShips())
             {
                 p1.AtackAction();
+                Console.WriteLine("Press Enter to end TURN");
+                Console.ReadKey();
                 p2.AtackAction();
+                Console.WriteLine("Press Enter to end TURN");
+                Console.ReadKey();
             }
 
             //---------------
