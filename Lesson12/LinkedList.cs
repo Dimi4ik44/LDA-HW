@@ -10,13 +10,13 @@ namespace Lesson12
         public int Count { get; private set; }
         public LinkedListElement<T> Head { get; private set; }
 
-        public LinkedList(T head)
+        public LinkedList()
         {
-            Head = new LinkedListElement<T>
-            {
-                Value = head
-            };
-            Count = 1;
+            //Head = new LinkedListElement<T>
+            //{
+            //    Value = default
+            //};
+            //Count = 1;
         }
 
         public T this[int index]
@@ -43,6 +43,12 @@ namespace Lesson12
                 Value = value,
                 Prev = Last()
             };
+            if (Head == null)
+            {
+                Head = newElement;
+                Count++;
+                return;
+            }
             Last().Next = newElement;
             Count++;
         }
@@ -51,7 +57,7 @@ namespace Lesson12
         {
             var current = Head;
 
-            while (current.Next != null)
+            while (current?.Next != null)
             {
                 current = current.Next;
             }
