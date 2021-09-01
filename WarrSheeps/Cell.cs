@@ -37,5 +37,10 @@ namespace WarrShips
         {
             SelectedState = css;
         }
+        public bool IsSelected()
+        {
+            if (SelectedState == CellSelectedState.Selected) return true;
+            return false;
+        }
     }
 }

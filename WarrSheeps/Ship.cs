@@ -37,7 +37,7 @@ namespace WarrShips
                 PosState = ShipPosition.Horizontal;
             }
         }
-        private bool DrovnedCheck()
+        public bool DrovnedCheck()
         {
             if (State == ShipState.Drowned)
             {

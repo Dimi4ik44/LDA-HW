@@ -188,8 +188,10 @@ namespace WarrShips
             MoveSelector(Vector2.Zero, seelectedField);
             ShowFields();
             int placedShips = 0;
+            string position = Ships[placedShips].PosState == ShipPosition.Horizontal ? "Horizontal" : "Vertical";
+            Console.WriteLine($"Cur Ship: Lenght:{Ships[placedShips].Length} Position:{position}");
             while (Ships.Count > placedShips)
-            {
+            {               
                 switch (ControlManager.GetInput())
                 {
                     case ConsoleKey.UpArrow:
@@ -206,23 +208,31 @@ namespace WarrShips
                         break;
                     case ConsoleKey.Enter:
                         if (PlaceShip(placedShips))
-                        {
+                        {                           
                             placedShips++;
                         }
                         break;
                     case ConsoleKey.Backspace:
                         Ships[placedShips].Rotate();
+                        position = Ships[placedShips].PosState == ShipPosition.Horizontal ? "Horizontal" : "Vertical";
                         break;
                     case ConsoleKey.R:
                         ResetSelection(seelectedField);
-                        PField = new Field();
+                        PField.Reset();
                         seelectedField = PField;
                         MoveSelector(Vector2.Zero, seelectedField);
                         placedShips = 0;
                         break;
                 }
+               
                 Console.Clear();
                 ShowFields();
+                if(Ships.Count > placedShips)
+                {
+                    position = Ships[placedShips].PosState == ShipPosition.Horizontal ? "Horizontal" : "Vertical";
+                    Console.WriteLine($"Cur Ship: Lenght:{Ships[placedShips].Length} Position:{position}");
+                }
+
             }
             ResetSelection(seelectedField);
         }
