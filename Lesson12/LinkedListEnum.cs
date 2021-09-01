@@ -12,7 +12,7 @@ namespace Lesson12
         public LinkedListEnum(LinkedListElement<T> head)
         {
             Head = head;
-            Cur = Head;
+            Cur = new LinkedListElement<T> { Next = head};         
         }
         public T Current { get { return Cur.Value; } private set { } }
 
@@ -25,7 +25,7 @@ namespace Lesson12
 
         public bool MoveNext()
         {
-            if (Cur.Next != null)
+            if (Cur?.Next != null)
             {
                 Cur = Cur.Next;
                 Current = Cur.Value;

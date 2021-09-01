@@ -10,19 +10,19 @@ namespace Lesson12
             //SomeU some = new SomeU();
             //SomeT somem = listElement.Creator(some);
 
-            LinkedList<string> linkedList = new LinkedList<string>("-1");
-            for (int i = 0; i < 10; i++)
+            LinkedList<string> linkedList = new LinkedList<string>();
+            for (int i = 0; i < 200; i++)
             {
                 linkedList.Add(i.ToString());
             }
 
             //PrintLinkedList(linkedList);
-            //Console.WriteLine(linkedList[0]);
-            //Console.WriteLine(linkedList[10]);
+            Console.WriteLine(linkedList[0]);
+            Console.WriteLine(linkedList[10]);
             //PrintLinkedListReversed(linkedList);
             //linkedList.Reverse();
             //PrintLinkedList(linkedList);
-            foreach (var item in linkedList)
+            foreach (string item in linkedList)
             {
                 Console.WriteLine(item);
             }
