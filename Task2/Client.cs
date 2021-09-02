@@ -8,9 +8,9 @@ namespace Task2
     {
         public string Name { get; set; }
         public int Age { get; set; }
-        public Contacts Contacts { get; set; }
+        public Contacts<PhoneNumber> Contacts { get; set; }
 
-        public Client(string name, int age, Contacts con)
+        public Client(string name, int age, Contacts<PhoneNumber> con)
         {
             Name = name;
             Age = age;
