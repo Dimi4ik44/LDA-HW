@@ -9,8 +9,8 @@ namespace Task2
     {
         Dictionary<string, string> CountryCodes = new Dictionary<string, string>();
         public string Number { get; set; }
-        public List<string> CountryList { get; set; }
-        private PhoneNumber()
+        public List<string> CountryList { get; set; } = new List<string>();
+        public PhoneNumber()
         {
             CountryList.AddRange(new string[] { "Ukraine", "Russia", "SC", "SC2" });
             CountryCodes.Add("Ukraine", "+380");
@@ -19,10 +19,15 @@ namespace Task2
             CountryCodes.Add("SC2", "+88");
         }
 
-        public void CreateNumber(string nameOfCountry, int number)
+        public bool CreateNumber(string nameOfCountry, int number)
         {
             Number = CountryCodes.Select(x => x.Key == nameOfCountry ? x.Value : "NONE").First();
             Number += number;
+            return true;
+        }
+        public override string ToString()
+        {
+            return Number;
         }
     }
 }
