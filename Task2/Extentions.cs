@@ -6,6 +6,6 @@ namespace Task2
 {
     static class Extentions
     {
-
+        
     }
 }
