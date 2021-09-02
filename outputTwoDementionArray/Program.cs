@@ -18,7 +18,9 @@ namespace outputTwoDementionArray
             arrayOutput(myarray);
             arrayOutput2(myarray);
             myarray.arrayOutput3();
-            Array.ForEach(myarray, new Action<int>(arrayOutput));
+            Action<int[,]> ac = new Action<int[,]>(arrayOutput);
+            ac.Invoke(myarray);
+            
             Dictionary<string, int> paper = new Dictionary<string, int>();
         }
         static public void arrayOutput(int[,] a)
@@ -39,7 +41,7 @@ namespace outputTwoDementionArray
                 Console.WriteLine(item);
             }
         }
-        static public void ShowElement(int a)
+        static public void ShowElement(int[,] a)
         {
             Console.WriteLine(a);
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Task2
 {
-    interface IContacts<T> where T : PhoneNumber
+    interface IContacts<T>
     {
         public string Adres { get; set; }
         public T PhoneNumber { get; set; }

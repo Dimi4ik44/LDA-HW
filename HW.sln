@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "outputTwoDementionArray", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2", "Task2\Task2.csproj", "{9EF05643-E635-4476-8FFD-84A7791313FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "validators", "validators\validators.csproj", "{0D7F728E-FB59-474C-9CBE-8D0AF32E1969}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{9EF05643-E635-4476-8FFD-84A7791313FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EF05643-E635-4476-8FFD-84A7791313FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EF05643-E635-4476-8FFD-84A7791313FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D7F728E-FB59-474C-9CBE-8D0AF32E1969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D7F728E-FB59-474C-9CBE-8D0AF32E1969}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D7F728E-FB59-474C-9CBE-8D0AF32E1969}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D7F728E-FB59-474C-9CBE-8D0AF32E1969}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +111,7 @@ Global
 		{AA964319-8BD8-4994-B78F-9E99674030F8} = {9AB9D67A-5CDA-4D92-9445-7F42FBBA6CD3}
 		{C1CC26FF-5200-4ECD-8FFE-C3F0568168EE} = {9AB9D67A-5CDA-4D92-9445-7F42FBBA6CD3}
 		{9EF05643-E635-4476-8FFD-84A7791313FC} = {9AB9D67A-5CDA-4D92-9445-7F42FBBA6CD3}
+		{0D7F728E-FB59-474C-9CBE-8D0AF32E1969} = {9AB9D67A-5CDA-4D92-9445-7F42FBBA6CD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E43C935-F11D-4207-8BB2-E545F78B1EAF}
