@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Task2
 {
@@ -11,7 +12,8 @@ namespace Task2
         {
             Console.WriteLine("Hello World!");
             pn.CreateNumber("Ukraine",0672717399);
-            Console.WriteLine(pn);
+
+            pn.CountryList.Where(x => x.Length > 2).ToList().ForEach((x)=> Console.WriteLine(x));
         }
     }
 }
