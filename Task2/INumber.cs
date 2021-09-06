@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Linq;
 
 namespace Task2
 {
-    class PhoneNumber : INumber
+    interface INumber
     {
         public string Number { get; set; }
-        public override string ToString()
-        {
-            return Number;
-        }
     }
 }
