@@ -7,7 +7,7 @@ namespace MusicGroup
     class Song
     {
         public string SongName { get; set; }
-        public List<Member<Instrument>> MembersPerform { get; set; }
+        public List<Member> MembersPerform { get; set; }
         public Group Group { get; set; }
         public DateTime Release { get; set; }
     }
