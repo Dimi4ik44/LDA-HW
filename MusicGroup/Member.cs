@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MusicGroup
 {
-    class Member<T> : IMember<T>
+    class Member : IMember
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -12,7 +12,7 @@ namespace MusicGroup
         public DateTime BirthDate { get; set ; }
         public int Age { get; set; }
         public List<Group> Groups { get; set; }
-        public T Instrumentary { get; set; }
+        public Instrument Instrumentary { get; set; }
 
         public override string ToString()
         {

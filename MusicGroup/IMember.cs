@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MusicGroup
 {
-    interface IMember<T>
+    interface IMember
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -12,6 +12,6 @@ namespace MusicGroup
         public DateTime BirthDate { get; set; }
         public int Age { get; set; }
         public List<Group> Groups { get; set; }
-        public T Instrumentary { get; set; }
+        public Instrument Instrumentary { get; set; }
     }
 }
