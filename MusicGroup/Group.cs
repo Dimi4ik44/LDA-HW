@@ -8,7 +8,7 @@ namespace MusicGroup
     {
         public string Name { get; set; }
         public DateTime LastActivity { get; set; }
-        public List<Member<Instrument>> Members { get; set; }
+        public List<Member> Members { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }
