@@ -10,5 +10,6 @@ namespace MusicGroup
         public DateTime LastActivity { get; set; }
         public List<Member> Members { get; set; }
         public DateTime CreationDate { get; set; }
+        public List<Album> Albums { get; set; }
     }
 }
