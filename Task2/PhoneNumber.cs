@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Task2
 {
-    class PhoneNumber : INumber
+    abstract class PhoneNumber : INumber
     {
         public string Number { get; set; }
         public override string ToString()

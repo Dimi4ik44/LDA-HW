@@ -7,7 +7,7 @@ namespace Task2
     {
         //Library
         //iterface 5 // Generic class 2 // Extention 1 linq style
-        public static PhoneNumber pn = new PhoneNumber();
+        public static MobilePhoneNumber pn = new MobilePhoneNumber();
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
