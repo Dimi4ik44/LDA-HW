@@ -17,7 +17,7 @@ namespace HW13_16
             "Emma","Ava","Charlotte","Elijah","Henry","Lucas","Mia","Issabella"};
             using (StreamWriter sw = new StreamWriter("File.txt"))
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 1000; i++)
                 {                   
                     sw.WriteLine($"{nameList[rnd.Next(nameList.Count)]+rnd.Next(100)}:{rnd.Next(1,100)}");
                 }
@@ -95,7 +95,7 @@ namespace HW13_16
                 b.ForEach(x=>lessThan14AndMoreThen79 += x.ToList().Count);
                 sw.WriteLine($"lessThan14AndMoreThen79: {lessThan14AndMoreThen79}");
             }
-            b = a.Where(x => x.Key > 14 || x.Key < 79).ToList();
+            b = a.Where(x => x.Key >= 14 && x.Key <= 79).ToList();
             WebClient wc = new WebClient();
             List<string> names = new List<string>();
             b.ForEach(x=>x.ToList().ForEach(x=> 
