@@ -69,6 +69,19 @@ namespace ServerAPI.Controllers
                 return null;
             }                       
         }
+        [HttpGet]
+        [Route("arrayid/{idstring}")]
+        public List<User> GetChatById([FromRoute] string idstring)
+        {
+            List<User> users = new List<User>();
+            idstring.Trim().Split(',').Distinct().ToList().ForEach(x =>
+            {
+                var user = Database.Users.Find(Int32.Parse(x));
+                if (user != null)
+                    users.Add(user);
+            });
+            return users;
+        }
 
         [HttpPost]
         [Route("add")]

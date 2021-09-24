@@ -34,6 +34,19 @@ namespace ServerAPI.Controllers
             chat = Database.Chats.Find(id);
             return chat;
         }
+        [HttpGet]
+        [Route("arrayid/{idstring}")]
+        public List<Chat> GetChatById([FromRoute]string idstring)
+        {
+            List<Chat> chats = new List<Chat>();
+            idstring.Trim().Split(',').Distinct().ToList().ForEach(x=> 
+            {
+                var chat = Database.Chats.Find(Int32.Parse(x));
+                if (chat!=null)
+                chats.Add(chat);
+            });
+            return chats;
+        }
         [HttpPost]
         [Route("add")]
         public object AddChat([FromBody] ChatDto data)

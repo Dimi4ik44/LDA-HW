@@ -1,71 +1,77 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
 using System.Net.Http;
-using ServerAPI.DTO;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using System.Net.Http.Headers;
 using WebClient.Data;
-using ServerAPI.Models;
+using WebClient.GUIModels;
+using System.Threading;
+
 
 namespace WebClient
 {
     class Application
     {
-        HttpClient client = new HttpClient();
-        UriBuilder ub = new UriBuilder("http://localhost:5000");
-        UserData userData = new UserData();
-        List<ChatData> chats = new List<ChatData>();
-        JsonSerializerOptions serializeOptions = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            WriteIndented = true
-        };
-
-
+        DataStorage data = new DataStorage("http://localhost:5000");
+        APIManager apim;
+        
 
         public string UserName { get; set; }
-        public async void Start()
+        public void Start()
         {
+            apim = new APIManager("http://localhost:5000", data);
+            Console.WriteLine("Write your name");
             string name = Console.ReadLine();
-            Task GetOrCreateUser = new Task(() =>
-            {
-                try
-                {
-                    userData = GetUserByNameAsync($"{name}").GetAwaiter().GetResult();
-                }
-                catch (HttpRequestException e)
-                {
-                    throw new Exception(e.Message);
-                }
-            });
-            Task getChats = new Task(() =>
-            {
-                try
-                {
-                    chats = GetChatsAsync().GetAwaiter().GetResult();
-                }
-                catch (HttpRequestException e)
-                {
-                    throw new Exception(e.Message);
-                }
-            });
 
-            GetOrCreateUser.Start();
-            getChats.Start();
+            data.LoadBaseData(name);
+            data.LoadSubscribedChats();
 
-            Console.ReadLine();
-            try
+            data.SelectChat(1);
+            
+            new GUIMainMenu(data).Render();
+            Console.WriteLine("Select chat \"Write chatId\"");
+            int select;
+            Int32.TryParse(Console.ReadLine(),out select);
+            data.SelectChat(select);
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            Task chatGuiRefresh = new Task(()=> 
+            { 
+                while(!token.IsCancellationRequested)
+                {
+                    new GUIChat(data).Render();
+                    Task.Delay(3000).Wait();
+                }
+            },token);
+            chatGuiRefresh.Start();
+            while(true)
             {
-                Task sendMessage = SendMessageToChatAsync("TestMessageClient", 1);
+                var key = Console.ReadKey();
+                data.writedText += key.KeyChar;
+                if(key.Key==ConsoleKey.Enter)
+                {
+                    Task send = new Task(()=> 
+                    {
+                        try
+                        {
+                            data.apim.SendMessageToChatAsync(data.writedText, data.SelectedChat.ChatId).GetAwaiter().GetResult();
+                            data.writedText = string.Empty;
+                        }
+                        catch (HttpRequestException e)
+                        {
+                            throw new Exception(e.Message);
+                        }
+                    });
+                    send.Start();
+                }else if(key.Key==ConsoleKey.Backspace)
+                {
+                    data.writedText = data.writedText.Remove(data.writedText.Length - 2);
+                }else if(key.Key==ConsoleKey.Escape)
+                {
+                    source.Cancel();
+                    break;
+                }
             }
-            catch(HttpRequestException e)
-            {
-                throw new Exception(e.Message);
-            }
+            new GUIMainMenu(data).Render();
+
             Console.ReadLine();
 
 
@@ -73,97 +79,7 @@ namespace WebClient
 
 
         
-        public async Task<UserData> CreateUserAsync(UserDto user)
-        {
-            UriBuilder uriBuilder = new UriBuilder(ub.Uri.ToString());
-            uriBuilder.Path = "user/add";
-            using (StringContent stringContext = new StringContent(JsonSerializer.Serialize(user), Encoding.UTF8, "application/json"))
-            {
-                using (HttpResponseMessage response = await client.PostAsync(uriBuilder.Uri, stringContext))
-                {
-                    Console.WriteLine(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                    if(response.StatusCode == HttpStatusCode.OK)
-                    {
-                        Console.WriteLine("UserAdd");
-                        return GetUserByNameAsync(user.Name).GetAwaiter().GetResult();
-                    }
-                    else throw new Exception("Problem creating user");
-                }
-                    
-            }                
-        }
-        public async Task<UserData> GetUserByNameAsync(string name)
-        {
-            UriBuilder uriBuilder = new UriBuilder(ub.Uri.ToString());
-            uriBuilder.Path = $"user/byname/{name}";
-
-            using (HttpResponseMessage response = await client.GetAsync(uriBuilder.Uri))
-            {
-
-                Console.WriteLine(response.StatusCode);
-                if(response.StatusCode == HttpStatusCode.OK)
-                {
-                    Console.WriteLine("UserFound");
-                    return JsonSerializer.Deserialize<UserData>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult(), serializeOptions);
-                    
-                }
-                else if(response.StatusCode == HttpStatusCode.NoContent)
-                {
-                    UserDto user = new UserDto() { Name = $"{name}" };
-                    return CreateUserAsync(user).GetAwaiter().GetResult();
-                }
-                else throw new Exception("Problem getting user by name");
-                
-            }
-                
-        }
-
-        public async Task<List<ChatData>> GetChatsAsync()
-        {
-            UriBuilder uriBuilder = new UriBuilder(ub.Uri.ToString());
-            uriBuilder.Path = $"chat";
-            using (HttpResponseMessage response = await client.GetAsync(uriBuilder.Uri))
-            {
-
-                Console.WriteLine(response.StatusCode);
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    Console.WriteLine("ChatsGetSeccesful");
-                    return JsonSerializer.Deserialize<List<ChatData>>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult(), serializeOptions);
-
-                }
-                else if (response.StatusCode == HttpStatusCode.NoContent)
-                {
-                    Console.WriteLine("ChatsGetNoContent");
-                    return new List<ChatData>();
-                }
-                else throw new Exception("Problem getting user by name");
-
-            }
-
-        }
-        public async Task SendMessageToChatAsync(string message, int chatId)
-        {
-            {
-                MessageDto mess = new MessageDto() { ChatId = chatId, Data = message, UserId = userData.UserId };
-                UriBuilder uriBuilder = new UriBuilder(ub.Uri.ToString());
-                uriBuilder.Path = "message/send";
-                using (StringContent stringContext = new StringContent(JsonSerializer.Serialize(message), Encoding.UTF8, "application/json"))
-                {
-                    using (HttpResponseMessage response = await client.PostAsync(uriBuilder.Uri, stringContext))
-                    {
-                        Console.WriteLine(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                        if (response.StatusCode == HttpStatusCode.OK)
-                        {
-                            Console.WriteLine("MessageSendSecces");
-                        }
-                        else throw new Exception($"Problem sending message to {mess.ChatId} : {mess.Data}");
-                    }
-
-                }
-            }
-
-        }
+        
 
     }
 }

@@ -24,6 +24,12 @@ namespace ServerAPI.Controllers
         {
             return Database.Subscriptions.ToList();
         }
+        [HttpGet]
+        [Route("byuser/{id}")]
+        public IEnumerable<Subscriptions> GetUserSubs(int id)
+        {
+            return Database.Subscriptions.Where(x=>x.UserId==id).ToList();
+        }
         [HttpPost]
         [Route("subscribe")]
         public object Subscribe([FromBody]Subscriptions subs)

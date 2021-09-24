@@ -26,15 +26,15 @@ namespace ServerAPI.Controllers
         }
         [HttpGet]
         [Route("chat/{id}")]
-        public IEnumerable<Message> GetChatMessages(int chatId)
+        public IEnumerable<Message> GetChatMessages(int Id)
         {
-            return Database.Messages.Where(x=>x.ChatId==chatId);
+            return Database.Messages.Where(x=>x.ChatId==Id);
         }
         [HttpGet]
         [Route("user/{id}")]
-        public IEnumerable<Message> GetUserMessages(int userId)
+        public IEnumerable<Message> GetUserMessages(int Id)
         {
-            return Database.Messages.Where(x => x.UserId == userId);
+            return Database.Messages.Where(x => x.UserId == Id);
         }
         [HttpPost]
         [Route("send")]
