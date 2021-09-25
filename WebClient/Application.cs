@@ -8,10 +8,17 @@ using System.Threading;
 
 namespace WebClient
 {
+    public enum AppState
+    {
+        MainMenu = 0,
+        ChatMenu,
+        Exit
+    }
     class Application
     {
         DataStorage data = new DataStorage("http://localhost:5000");
         APIManager apim;
+        AppState appState = AppState.MainMenu;
         
 
         public string UserName { get; set; }
@@ -23,66 +30,109 @@ namespace WebClient
 
             data.LoadBaseData(name);
             data.LoadSubscribedChats();
-
             data.SelectChat(1);
-            
-            new GUIMainMenu(data).Render();
-            Console.WriteLine("Select chat \"Write chatId\"");
-            int select;
-            Int32.TryParse(Console.ReadLine(),out select);
-            data.SelectChat(select);
-            CancellationTokenSource source = new CancellationTokenSource();
-            CancellationToken token = source.Token;
-            Task chatGuiRefresh = new Task(()=> 
-            { 
-                while(!token.IsCancellationRequested)
-                {
-                    new GUIChat(data).Render();
-                    Task.Delay(3000).Wait();
-                }
-            },token);
-            chatGuiRefresh.Start();
-            while(true)
+            while (applieState())
             {
-                var key = Console.ReadKey();
-                data.writedText += key.KeyChar;
-                if(key.Key==ConsoleKey.Enter)
-                {
-                    Task send = new Task(()=> 
+               
+            }    
+               
+            
+        }
+        public bool applieState()
+        {
+            switch (appState)
+            {
+                case AppState.MainMenu:
+                    new GUIMainMenu(data).Render();
+                    Console.WriteLine("Select chat \"Write chatId\" else write -1 to exit");
+                    int select;
+                    Int32.TryParse(Console.ReadLine(), out select);
+                    if(select == -1)
                     {
-                        data.writedText = data.writedText.Replace("\r", string.Empty);
-                        data.writedText = data.writedText.Replace("\n", string.Empty);
-                        try
+                        appState = AppState.Exit;
+                        return true;
+                    }
+                    data.SelectChat(select);
+                    if (!data.SelectedChatIsNotNull())
+                    {
+                        return true;
+                    }
+                    appState = AppState.ChatMenu;
+                    return true;
+                case AppState.ChatMenu:
+                    if (!data.SelectedChatIsNotNull())
+                    {
+                        appState = AppState.MainMenu;
+                        return true;
+                    }
+                    CancellationTokenSource source = new CancellationTokenSource();
+                    CancellationToken token = source.Token;
+                    Task chatGuiRefresh = new Task(() =>
+                    {
+                        while (!token.IsCancellationRequested)
                         {
-                            data.apim.SendMessageToChatAsync(data.writedText, data.SelectedChat.ChatId).GetAwaiter().GetResult();
-                            data.writedText = string.Empty;
+                            new GUIChat(data).Render();
+                            Task.Delay(3000).Wait();
                         }
-                        catch (HttpRequestException e)
+                    }, token);
+                    chatGuiRefresh.Start();
+                    while (true)
+                    {
+                        var key = Console.ReadKey();
+                        data.writedText += key.KeyChar;
+                        if (key.Key == ConsoleKey.Enter)
                         {
-                            throw new Exception(e.Message);
+                            string temp = data.writedText;
+                            temp = temp.Replace("\r", string.Empty);
+                            temp = temp.Replace("\n", string.Empty);
+                            if(data.writedText.Length > 0)
+                            {
+                                Task send = new Task(() =>
+                                {
+
+                                    try
+                                    {
+                                        data.apim.SendMessageToChatAsync(temp, data.SelectedChat.ChatId).GetAwaiter().GetResult(); 
+                                    }
+                                    catch (HttpRequestException e)
+                                    {
+                                        throw new Exception(e.Message);
+                                    }
+                                    finally
+                                    {
+                                        data.writedText = string.Empty;
+                                    }
+                                });
+                                send.Start();
+                            }                           
                         }
-                    });
-                    send.Start();
-                }else if(key.Key==ConsoleKey.Backspace)
-                {
-                    data.writedText = data.writedText.Remove(data.writedText.Length - 2);
-                }
-                else if(key.Key==ConsoleKey.Escape)
-                {
-                    source.Cancel();
-                    break;
-                }
+                        else if (key.Key == ConsoleKey.Backspace)
+                        {
+                            if(data.writedText.Length >= 3)
+                            {
+                                data.writedText = data.writedText.Remove(data.writedText.Length - 2);
+                            }
+                            
+                        }
+                        else if (key.Key == ConsoleKey.Escape)
+                        {
+                            source.Cancel();
+                            appState = AppState.MainMenu;
+                            break;
+                        }
+                    }
+                    return true;
+                case AppState.Exit:
+
+                    return false;
+                default:
+                    throw new Exception("Bad app state");
             }
-            new GUIMainMenu(data).Render();
-
-            Console.ReadLine();
-
-
         }
 
 
-        
-        
+
+
 
     }
 }

@@ -67,7 +67,9 @@ namespace WebClient.GUIModels
             Console.Write($"{Data.SelectedChat?.Name}");
             Console.ResetColor();
             Console.WriteLine("************************");
+            Console.WriteLine("Press \"ESC\" for return back");
             Console.Write(Data.writedText);
+            
         }
         public GUIChat(DataStorage data) : base(data)
         {

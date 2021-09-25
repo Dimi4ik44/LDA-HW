@@ -107,6 +107,14 @@ namespace WebClient.Data
             }
             
         }
+        public bool SelectedChatIsNotNull()
+        {
+            if(SelectedChat != null)
+            {
+                return true;
+            }
+            return false;
+        }
 
     }
 }
