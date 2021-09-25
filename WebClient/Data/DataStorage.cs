@@ -14,6 +14,7 @@ namespace WebClient.Data
         public List<ChatData> SubscribedChats { get; set; }
         public ChatData SelectedChat { get; set; }
         public List<MessageData> MessagesSelectedChat { get; set; }
+        public List<UserData> SelectedChatUsersList { get; set; }
         public APIManager apim { get; set; }
         public string writedText { get; set; }
         public DataStorage(string apimanagerUri)

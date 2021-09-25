@@ -21,11 +21,43 @@ namespace WebClient.GUIModels
             Console.WriteLine($"{Data.User.Name}");
             Console.ResetColor();
 
+            string ids = string.Empty; ;
+            Data.apim.GetSubsByChatIdAsync(Data.SelectedChat.ChatId).GetAwaiter().GetResult()
+                .ForEach(x=>
+                {
+                    ids += x.UserId;
+                    ids += ",";
+                });
+            if (ids.Length > 0)
+            {
+                ids = ids.Remove(ids.Length - 1);
+                Data.SelectedChatUsersList = Data.apim.GetUsersByIdsAsync(ids).GetAwaiter().GetResult();
+            }
+            else
+            {
+                Data.SelectedChatUsersList = new List<UserData>();
+            }
+            int counter = 0;
+            if(counter%6==0)
+            {              
+                Console.Write($"*** Users subscribed at chat: ");
+                Data.SelectedChatUsersList.ForEach(x =>
+                {
+                    counter++;
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.Write(x.Name);
+                    Console.ResetColor();
+                    Console.Write($" | ");
+                });
+                Console.WriteLine();
+            }
+
+
 
             if (Data.SelectedChat!=null)
             {
                 Data.LoadSelectedChatMessages();
-                string ids = string.Empty;
+                ids = string.Empty;
                 List<UserData> users = new List<UserData>();
                 Data.MessagesSelectedChat.ForEach(x=> 
                 {

@@ -30,6 +30,12 @@ namespace ServerAPI.Controllers
         {
             return Database.Subscriptions.Where(x=>x.UserId==id).ToList();
         }
+        [HttpGet]
+        [Route("bychat/{id}")]
+        public IEnumerable<Subscriptions> GetChatSubs(int id)
+        {
+            return Database.Subscriptions.Where(x => x.ChatId == id).ToList();
+        }
         [HttpPost]
         [Route("subscribe")]
         public object Subscribe([FromBody]Subscriptions subs)

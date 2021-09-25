@@ -154,17 +154,17 @@ namespace WebClient.Data
 
         }
 
-        public async Task<List<SubscriptionsData>> GetSubsByUserIdAsync(int userid)
+        public async Task<List<SubscriptionsData>> GetSubsByUserIdAsync(int userId)
         {
             UriBuilder uriBuilder = new UriBuilder(ub.Uri.ToString());
-            uriBuilder.Path = $"subscriptions/byuser/{userid}";
+            uriBuilder.Path = $"subscriptions/byuser/{userId}";
             using (HttpResponseMessage response = await client.GetAsync(uriBuilder.Uri))
             {
 
                 //Console.WriteLine(response.StatusCode);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    //Console.WriteLine("SubsSeccesful");
+                    //Console.WriteLine("SubsByUserIdSeccesful");
                     return JsonSerializer.Deserialize<List<SubscriptionsData>>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult(), serializeOptions);
 
                 }
@@ -174,6 +174,30 @@ namespace WebClient.Data
                     return new List<SubscriptionsData>();
                 }
                 else throw new Exception("Problem getting user Subs by ID");
+
+            }
+
+        }
+        public async Task<List<SubscriptionsData>> GetSubsByChatIdAsync(int chatId)
+        {
+            UriBuilder uriBuilder = new UriBuilder(ub.Uri.ToString());
+            uriBuilder.Path = $"subscriptions/bychat/{chatId}";
+            using (HttpResponseMessage response = await client.GetAsync(uriBuilder.Uri))
+            {
+
+                //Console.WriteLine(response.StatusCode);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    //Console.WriteLine("SubsByChatIdSeccesful");
+                    return JsonSerializer.Deserialize<List<SubscriptionsData>>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult(), serializeOptions);
+
+                }
+                else if (response.StatusCode == HttpStatusCode.NoContent)
+                {
+                    Console.WriteLine("SubsGetNoContent");
+                    return new List<SubscriptionsData>();
+                }
+                else throw new Exception("Problem getting chat Subs by ID");
 
             }
 
