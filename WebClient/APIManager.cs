@@ -7,6 +7,7 @@ using ServerAPI.DTO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Net.Http.Headers;
 using WebClient.Data;
 using ServerAPI.Models;
@@ -224,6 +225,57 @@ namespace WebClient.Data
                     }
 
                 }
+            }
+
+        }
+        public async Task SubscribeOnChatAsync()
+        {
+            {   if (data.SubscribedChats.Where(x => x.ChatId == data.SelectedChat.ChatId).FirstOrDefault() == null)
+                {
+                    SubscriptionDto sub = new SubscriptionDto() { UserId = data.User.UserId, ChatId = data.SelectedChat.ChatId };
+                    UriBuilder uriBuilder = new UriBuilder(ub.Uri.ToString());
+                    uriBuilder.Path = "subscriptions/subscribe";
+                    using (StringContent stringContext = new StringContent(JsonSerializer.Serialize(sub), Encoding.UTF8, "application/json"))
+                    {
+                        using (HttpResponseMessage response = await client.PostAsync(uriBuilder.Uri, stringContext))
+                        {
+                            //Console.WriteLine(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                            if (response.StatusCode == HttpStatusCode.OK)
+                            {
+                                //Console.WriteLine("SubSucces");
+                            }
+                            else throw new Exception($"Cant sub User {data.User.UserId} at Chat {data.SelectedChat.ChatId}");
+                        }
+
+                    }
+                    data.LoadSubscribedChats();
+                    Console.WriteLine("Subscribe Succes");
+                }
+                else UnSubscribeOnChatAsync().GetAwaiter().GetResult();
+
+            }
+
+        }
+        public async Task UnSubscribeOnChatAsync()
+        {
+            {
+                if (data.SubscribedChats.Where(x => x.ChatId == data.SelectedChat.ChatId).FirstOrDefault()!=null)
+                {              
+                    UriBuilder uriBuilder = new UriBuilder(ub.Uri.ToString());
+                    uriBuilder.Path = $"subscriptions/remove/{data.SelectedChat.ChatId}/{data.User.UserId}";
+                        using (HttpResponseMessage response = await client.DeleteAsync(uriBuilder.Uri))
+                        {
+                            //Console.WriteLine(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                            if (response.StatusCode == HttpStatusCode.OK)
+                            {
+                                //Console.WriteLine("SubSuccesRemove");
+                            }
+                            else throw new Exception($"Cant UnSub User {data.User.UserId} at Chat {data.SelectedChat.ChatId}");
+                        }
+                    data.LoadSubscribedChats();
+                    Console.WriteLine("Unsubed");
+                }
+
             }
 
         }

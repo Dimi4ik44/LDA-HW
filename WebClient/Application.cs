@@ -17,14 +17,12 @@ namespace WebClient
     class Application
     {
         DataStorage data = new DataStorage("http://localhost:5000");
-        APIManager apim;
         AppState appState = AppState.MainMenu;
         
 
         public string UserName { get; set; }
         public void Start()
         {
-            apim = new APIManager("http://localhost:5000", data);
             Console.WriteLine("Write your name");
             string name = Console.ReadLine();
 
@@ -120,6 +118,10 @@ namespace WebClient
                             source.Cancel();
                             appState = AppState.MainMenu;
                             break;
+                        }
+                        else if(key.Key == ConsoleKey.F1)
+                        {
+                            data.apim.SubscribeOnChatAsync().GetAwaiter().GetResult();
                         }
                     }
                     return true;
