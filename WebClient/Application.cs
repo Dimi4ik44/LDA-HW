@@ -50,6 +50,8 @@ namespace WebClient
                 {
                     Task send = new Task(()=> 
                     {
+                        data.writedText = data.writedText.Replace("\r", string.Empty);
+                        data.writedText = data.writedText.Replace("\n", string.Empty);
                         try
                         {
                             data.apim.SendMessageToChatAsync(data.writedText, data.SelectedChat.ChatId).GetAwaiter().GetResult();
@@ -64,7 +66,8 @@ namespace WebClient
                 }else if(key.Key==ConsoleKey.Backspace)
                 {
                     data.writedText = data.writedText.Remove(data.writedText.Length - 2);
-                }else if(key.Key==ConsoleKey.Escape)
+                }
+                else if(key.Key==ConsoleKey.Escape)
                 {
                     source.Cancel();
                     break;
