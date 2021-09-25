@@ -76,16 +76,17 @@ namespace WebClient
                         }
                     }, token);
                     chatGuiRefresh.Start();
+                    data.writedText = string.Empty;
                     while (true)
                     {
                         var key = Console.ReadKey();
                         data.writedText += key.KeyChar;
                         if (key.Key == ConsoleKey.Enter)
                         {
-                            string temp = data.writedText;
+                            string temp = data.writedText.Trim();
                             temp = temp.Replace("\r", string.Empty);
                             temp = temp.Replace("\n", string.Empty);
-                            if(data.writedText.Length > 0)
+                            if(temp.Length > 0)
                             {
                                 Task send = new Task(() =>
                                 {
